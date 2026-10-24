@@ -1,0 +1,114 @@
+of the deployable tax there (47 of 59 hurt queries repaired, 23
+newly hurt) is partly convergence rather than repair. Against
+the reranked oracle (Supplementary Table S10), interpola-
+tion’s tax falls from 20% to 13% on SciFact and from 39%
+to 28% on NFCorpus but is essentially unchanged on FiQA
+(23% to 24%). On ArguAna and SciDocs the cross-encoder
+degrades retrieval (dense-only falls by 0.116 and 0.007),
+on ArguAna the known weakness of relevance rerankers
+on counter-argument retrieval [13], and on the duplicate-
+question Quora set it leaves dense-only unchanged (+0.002)
+while lowering the interpolated arm (0.901→0.893); on these
+three corpora the near-disappearance of the deployable tax
+(ArguAna 19%→2%, Quora 9%→1%) is not recovery: the
+arms converge on the reranker’s own ordering, at or below
+the best unreranked arm, and ArguAna’s oracle tax actu-
+ally rises to 49%. Two further observations, at depth 30
+with this reranker, characterize the second retriever’s value
+in a reranked pipeline. First, once reranked, the candidate
+source matters little: interpolation candidates score within
+0.011 nDCG@10 of dense candidates on six corpora and
++0.018 on TREC-COVID (paired 95% bootstrap intervals
+in Supplementary Table S12; these are observed differences
+at depth 30 with one reranker, not a ceiling), and RRF
+candidates within 0.014 on five, with the exceptions again
+on the balanced TREC-COVID (+0.044) and on ArguAna
+(+0.069, where BM25’s candidates suit the reranker better
+than dense’s). Second, where the reranker works, its lift on
+dense-only exceeds the first-stage gain that fusion delivers
+over dense-only on three of the five corpora where it does not
+degrade dense-only (reranking vs. fusion: SciFact 0.019 vs.
+0.011, FiQA 0.042 vs. 0.024, TREC-COVID 0.142 vs. 0.051;
+NFCorpus and Quora are the exceptions, 0.003 vs. 0.018 and
+0.002 vs. 0.010). A reranker therefore limits the downstream
+impact of the tax only on corpora where it is reliable, and that
+reliability has to be validated per corpus exactly as the fusion
+decision must be, and on such corpora the second retriever
+added no more than 0.011 nDCG@10 in our measurements
+unless sparse and dense are balanced. These results are
+specific to one cross-encoder (BGE-reranker-v2-m3) at one
+depth (30) over BGE-small candidates: they are informative
+about that configuration and should not be read as a general
+upper bound on what reranking can recover, since a different
+reranker, a deeper candidate list, or a listwise LLM reranker
+could recover more of the tax or less of it, and rerankers
+themselves degrade with pool size [67].
+I. EFFICIENCY
+Table 14 gives the measured cost of each component on the
+workstation of Section IV-C (CPU cores for retrieval and
+fusion, integrated GPU for the reranker). Adding BM25 to
+a dense stack is cheap: a Lucene query takes 1.1–4.3 ms at
+the median (up to 7 ms at the 95th percentile), the inverted
+index occupies 8–266 MB, and indexing the 171,000 TREC-
+COVID abstracts takes 11.5 s with eight threads (title and
+body as separate fields, the configuration of the prebuilt
+indexes used for retrieval). Adding a dense retriever to a
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+lexical stack is where the cost lies: encoding the query takes
+5–7 ms for BGE-small (19 ms on ArguAna, whose queries
+are full arguments), exact search over the embedding matrix
+0.1–12 ms, and the matrix itself 6–803 MB for BGE-small
+and 15–2,142 MB for BGE-large; encoding the corpus runs
+at 40 abstracts per second for BGE-small and 5 for BGE-
+large on CPU (784 and 83 per second on Quora’s short ques-
+tions; throughput measured on 512 documents for the dense
+encoders and 128 for SPLADE), so by extrapolation indexing
+TREC-COVID costs 71 min and 9.7 h, respectively, against
+Lucene’s 11.5 s. SPLADE sits in between: 10 abstracts per
+second to index and 17–19 ms to encode a query (53 ms on
+ArguAna). The fusion step itself is negligible (under 0.1 ms).
+For comparison, the cross-encoder of Section V-H scored 19
+pairs per second in 16-bit precision on the same machine’s
+integrated GPU, i.e. about 1.6 s per query at depth 30, two to
+three orders of magnitude more than the second retriever. The
+second retriever is therefore the cheap lever and the reranker
+the expensive one; what the second retriever buys in quality
+is the subject of Sections V-D and V-H.
+J. VARIANCE DECOMPOSITION
+A one-way ANOVA states an obvious but useful point:
+dataset identity explains far more nDCG@10 variance than
+the fusion method (η2
+dataset = 0.40 vs. η2
+method = 0.01), largely
+because baseline difficulty ranges from 0.20 (SciDocs) to
+0.89 (Quora). This is not a claim that the fusion choice is
+unimportant; it is the reason we report every comparison per
+corpus rather than pooled, and it is consistent with the corpus-
+specificity of fusion failure above.
+VI. DISCUSSION
+A. RRF IS NOT A SAFE DEFAULT, AND WHEN IT IS THE
+RIGHT CHOICE
+Our results qualify the default recommendation of RRF
+that the documentation surveyed in Section II-B carried at
+the time of writing. On the five corpora where the dense
+retriever is clearly the stronger component, dense-weighted
+interpolation beats RRF in aggregate (significantly on four),
+RRF’s per-query tax against the oracle is higher (20–40% vs.
+13–36%), and RRF’s net change against simply using the
+dense retriever is negative. RRF discards score magnitude,
+the information that protects the documents the stronger
+component ranked highly (a document ranked first by a
+confident retriever counts the same as one ranked first by a
+hair), but it also weights the two components equally where
+the interpolation it loses to weights dense 0.7. The two effects
+can be separated: a weighted RRF with the same 0.7/0.3
+weights and no score magnitudes closes 25–73% of the RRF-
+to-interpolation gap on the five dense-led corpora (Supple-
+mentary Table S13), so weighting accounts for roughly half
+of RRF’s disadvantage and the score information for the rest.
+The picture reverses where sparse and dense are balanced:
+on TREC-COVID, RRF and CombMNZ beat dense-heavy
+interpolation by 0.08–0.09 nDCG@10 and help 70–74% of
+queries, and on NFCorpus the three methods tie. This is not
+159632
+VOLUME 14, 2026

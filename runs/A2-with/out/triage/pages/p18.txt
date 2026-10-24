@@ -1,0 +1,116 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+[62] F. Schlatt, M. Fröbe, H. Scells, S. Zhuang, B. Koopman, G. Zuccon,
+B. Stein, M. Potthast, and M. Hagen, “Rank-DistiLLM: Closing the effec-
+tiveness gap between cross-encoders and LLMs for passage re-ranking,”
+in Advances in Information Retrieval (ECIR 2025), 2025.
+[63] A. Abdallah, B. Piryani, J. Mozafari, M. Ali, and A. Jatowt, “How good are
+LLM-based rerankers? An empirical analysis of state-of-the-art reranking
+models,” in Findings of the Association for Computational Linguistics:
+EMNLP 2025, 2025.
+[64] T. Pandit, S. Mahendru, M. Raval, and D. Upadhyay, “The evolution of
+reranking models in information retrieval: From heuristic methods to large
+language models,” in CLNLP 2025, 2025. arXiv:2512.16236.
+[65] L. Gao, Z. Dai, and J. Callan, “Rethink training of BERT rerankers
+in multi-stage retrieval pipeline,” in Advances in Information Retrieval
+(ECIR 2021), 2021.
+[66] J. Lu, K. Hall, J. Ma, and J. Ni, “HYRR: Hybrid infused reranking for
+passage retrieval,” arXiv preprint arXiv:2212.10528, 2022.
+[67] M. Jacob, E. Lindgren, M. Zaharia, M. Carbin, O. Khattab, and A. Droz-
+dov, “Drowning in documents: Consequences of scaling reranker infer-
+ence,” in ReNeuIR Workshop at SIGIR 2025, 2025. arXiv:2411.11767.
+[68] C. Meng, N. Arabzadeh, A. Askari, M. Aliannejadi, and M. de Rijke,
+“Ranked list truncation for large language model-based re-ranking,” in
+Proceedings of the 47th International ACM SIGIR Conference on Re-
+search and Development in Information Retrieval, 2024.
+[69] L. Medrano, A. Verma, and M. Chhabra, “Scaling retrieval augmented
+generation with RAG fusion: Lessons from an industry deployment,” arXiv
+preprint arXiv:2603.02153, 2026.
+[70] R. Pradeep, N. Thakur, S. Sharifymoghaddam, E. Zhang, R. Nguyen,
+D. Campos, N. Craswell, and J. Lin, “Ragnarök: A reusable RAG frame-
+work and baselines for TREC 2024 retrieval-augmented generation track,”
+in Advances in Information Retrieval (ECIR 2025), Part I, pp. 132–148,
+2025.
+[71] N. F. Liu, K. Lin, J. Hewitt, A. Paranjape, M. Bevilacqua, F. Petroni, and
+P. Liang, “Lost in the middle: How language models use long contexts,”
+Transactions of the Association for Computational Linguistics, vol. 12,
+pp. 157–173, 2024.
+[72] C.-Y. Hsieh, Y.-S. Chuang, C.-L. Li, Z. Wang, L. T. Le, A. Kumar, J. Glass,
+A. Ratner, C.-Y. Lee, R. Krishna, and T. Pfister, “Found in the middle:
+Calibrating positional attention bias improves long context utilization,”
+in Findings of the Association for Computational Linguistics: ACL 2024,
+2024.
+[73] F. Cuconasu, G. Trappolini, F. Siciliano, S. Filice, C. Campagnano,
+Y. Maarek, N. Tonellotto, and F. Silvestri, “The power of noise: Redefining
+retrieval for RAG systems,” in Proceedings of the 47th International
+ACM SIGIR Conference on Research and Development in Information
+Retrieval, pp. 719–729, 2024.
+[74] M. Mazuryk, F. Dolmans, L. Gehringer, I. Klaric, J.-H. Ju, and M. Alian-
+nejadi, “The powerless noise: How experimental settings shape the re-
+ported power of noise,” in Proceedings of the 49th International ACM SI-
+GIR Conference on Research and Development in Information Retrieval,
+pp. 2973–2982, 2026.
+[75] J. Hsia, A. Shaikh, Z. Wang, and G. Neubig, “RAGGED: Towards in-
+formed design of scalable and stable RAG systems,” in Proceedings of
+the 42nd International Conference on Machine Learning (ICML), 2025.
+[76] A. Salemi and H. Zamani, “Evaluating retrieval quality in retrieval-
+augmented generation,” in Proceedings of the 47th International ACM SI-
+GIR Conference on Research and Development in Information Retrieval,
+pp. 2395–2400, 2024.
+[77] D. Brown, S. Jain, V. Novotný, and nlp4whp, “dorianbrown/rank_bm25
+(v0.2.2).” Zenodo, https://doi.org/10.5281/zenodo.6106156, 2022.
+[78] N. Reimers and I. Gurevych, “Sentence-BERT: Sentence embeddings
+using Siamese BERT-networks,” in Proceedings of the 2019 Conference
+on Empirical Methods in Natural Language Processing and the 9th In-
+ternational Joint Conference on Natural Language Processing (EMNLP-
+IJCNLP), pp. 3982–3992, 2019.
+[79] S. Xiao, Z. Liu, P. Zhang, and N. Muennighoff, “C-Pack: Pack-
+aged resources to advance general Chinese embedding,” arXiv preprint
+arXiv:2309.07597, 2023.
+[80] Y. Zhang, M. Li, D. Long, X. Zhang, H. Lin, B. Yang, P. Xie, A. Yang,
+D. Liu, J. Lin, F. Huang, and J. Zhou, “Qwen3 Embedding: Advancing
+text embedding and reranking through foundation models,” arXiv preprint
+arXiv:2506.05176, 2025.
+[81] J. Johnson, M. Douze, and H. Jégou, “Billion-scale similarity search with
+GPUs,” IEEE Transactions on Big Data, vol. 7, no. 3, pp. 535–547, 2021.
+[82] J. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu, “M3-Embedding:
+Multi-linguality, multi-functionality, multi-granularity text embeddings
+through self-knowledge distillation,” in Findings of the Association for
+Computational Linguistics: ACL 2024, pp. 2318–2335, 2024.
+[83] C. Van Gysel and M. de Rijke, “Pytrec_eval: An extremely fast Python in-
+terface to trec_eval,” in Proceedings of the 41st International ACM SIGIR
+Conference on Research and Development in Information Retrieval, 2018.
+AADITYA
+CHAUHAN
+is
+a
+researcher
+and
+engineer specializing in information retrieval,
+retrieval-augmented generation, and large-scale
+search systems. With over a decade of experi-
+ence in distributed systems and production search,
+he has designed and operated consumer-scale re-
+trieval infrastructure spanning hybrid retrieval,
+vector search, dense retrieval compression, and
+embedding lifecycle management. His research
+centers on evaluation methodology and repro-
+ducible benchmarking for retrieval systems, with a focus on the real-world
+trade-offs between storage, latency, and relevance in dense and hybrid
+retrieval. He serves as a reviewer for several ACM conferences and for IEEE
+Access, and has served as a session chair at the International Conference on
+Enterprise Information Systems (ICEIS).
+ARUN AGARWAL is an engineering leader and
+practitioner-researcher working at the intersection
+of information retrieval, on-device machine learn-
+ing, and large-scale systems engineering. His re-
+search interests include retrieval-augmented gen-
+eration, embedding compression and index effi-
+ciency, and evaluation methodology for retrieval
+systems under real-world storage, latency, and cost
+constraints. He is particularly interested in build-
+ing reproducible experimental frameworks that
+connect research methods to production deployment decisions, drawing on
+his experience leading multi-team software organizations that ship media
+experiences across consumer device platforms.
+VOLUME 14, 2026
+159637

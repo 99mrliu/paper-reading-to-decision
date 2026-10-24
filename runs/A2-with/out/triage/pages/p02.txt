@@ -1,0 +1,125 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+pora and three fusion functions that reports harm and
+benefit symmetrically, against a per-query oracle and
+against the deployable always-dense baseline, overall
+and by a four-quadrant diagnostic taxonomy (Sec-
+tions V-C–V-D). With a standard Anserini BM25 and
+the best fusion method, dense-weighted interpolation,
+13–48% of queries pay an oracle tax and 8–21% score
+below dense-only, even though fusion beats dense-only
+in aggregate on every corpus with the primary encoder;
+the loss is significant under loss-averse risk-sensitive
+tests on six of the seven corpora.
+2) A held-out selection of the interpolation weight
+under leave-one-corpus-out and within-corpus cross-
+validation (Section V-B), so that the recommendation
+of a dense-heavy weight, and the tax at that weight, are
+validated on queries not used to choose it.
+3) A
+robustness
+analysis
+on
+all
+seven
+corpora
+that falsifies the “stronger retrieval dissolves the
+tax” hypothesis: a controlled encoder scale ladder
+(BGE-small/base/large, plus MiniLM and the 2025-
+generation Qwen3-Embedding) leaves the tax at 14–
+43% for the newest and largest encoder, a range over-
+lapping those of every smaller and older one (Sec-
+tion V-E), and replacing BM25 with SPLADE shows
+that interpolation’s tax is intrinsic to score fusion,
+whereas RRF’s tax responds to the quality of the lexical
+component (Section V-F).
+4) A predictability analysis with a negative cross-
+corpus result: fusion failure is weakly predictable
+from cheap query features within a corpus (mean held-
+out AUC 0.63) but transfers unreliably across corpora
+(mean 0.59, ranging from chance at 0.49 to 0.74), a
+held-out fusion/dense-only router built on the same
+features never beats static interpolation, and a feature-
+level analysis shows why, since both the important
+features and the direction of their association with
+failure change from corpus to corpus (Section V-G).
+5) A measurement of downstream exposure: on the
+three corpora where a strong cross-encoder over
+budget-matched candidate sets improves every re-
+trieval arm, the prevalence of the deployable tax falls
+by a third on one and not at all on the other two, while
+71–90% of the originally hurt queries are individually
+repaired and others take their place; where it degrades
+or overrides the first stage it overwrites the tax rather
+than repairing it; once reranked, interpolated and dense
+candidate sets differ by at most 0.011 nDCG@10 with
+the one reranker and depth tested (paired intervals
+within ±0.02) except where sparse and dense are bal-
+anced (Section V-H), and measured index sizes and
+latencies quantify what the second retriever costs (Sec-
+tion V-I).
+Scope. Our object of study is first-stage retrieval quality,
+measured with standard ranking metrics, plus the recovery
+obtained from one reranking stage. We do not evaluate an-
+swer generation. Because the tax is largely a ranking-position
+effect (recall@10 is preserved in aggregate, although a mi-
+nority of the hurt queries do lose a relevant document from
+the top-10; Section V-D), its consequence for a downstream
+consumer depends on how rank-sensitive that consumer is;
+the reranking experiment measures the case that matters most
+in practice, and we state the remaining exposure without
+claiming an effect on generated answers.
+II. RELATED WORK
+A. DENSE AND SPARSE RETRIEVAL
+Dense retrievers such as DPR [2] and late-interaction models
+such as ColBERT [10] match queries and documents in
+an embedding space and therefore handle paraphrase and
+synonymy, but can miss rare terms, identifiers, and out-
+of-distribution vocabulary. BM25 [1] remains a strong and
+cheap baseline, especially for keyword- and entity-heavy
+queries, and its Anserini/Pyserini implementation [11], [12]
+is the reference point for BEIR [13], [14]. Learned sparse
+models such as SPLADE [15], [16] add learned term expan-
+sion to an inverted-index representation. Because each family
+fails on a different slice of queries, hybrid fusion is attractive;
+for the same reason, aggregate gains can coexist with per-
+query harm.
+B. HYBRID FUSION AND THE RRF DEFAULT
+Hybrid systems combine sparse and dense rankings either
+by rank or by score. RRF [3] sums reciprocal ranks with a
+constant k: it is parameter-light and scale-free, but discards
+score magnitude, treating a confidently top-ranked document
+identically to a marginal one. Score-based methods (Comb-
+SUM/CombMNZ [17], [18] and weighted interpolation [19])
+preserve magnitude but must first place two incomparable
+score distributions on a common scale.
+A review of vendor and framework documentation,
+as accessed in September 2026, shows that RRF is
+the
+recommended
+or
+sole
+fusion
+method
+in
+Elastic-
+search [20], [21], Azure AI Search [22], and LangChain’s
+EnsembleRetriever [23]; Qdrant documents it as the
+safe default [24], Pinecone recommends it when fusing
+across indexes [25], and it is the fusion used in the canonical
+hybrid examples of Milvus [26] and LlamaIndex [27]. Recent
+RAG systems adopt it for the same reason, explicitly to
+avoid score calibration between heterogeneous retrievers:
+the winning SIGIR 2025 LiveRAG system fuses BM25 and
+dense lists with RRF (k=60) [28] in a challenge where most
+teams used hybrid search [29], as do RAG-Fusion [30] and
+several 2025–2026 systems [31]–[33]. The default is not
+universal: OpenSearch’s hybrid pipeline defaults to min–max
+normalization with an arithmetic mean and added RRF only
+in version 2.19 [34], and Weaviate reversed its default from
+rank fusion to min–max “relative score” fusion in version
+1.24 after internal benchmarks [35], [36]; Vespa’s tutorial
+reports linear normalization beating RRF on NFCorpus [37].
+Elasticsearch and OpenSearch, the two largest open-source
+engines, thus disagree on the default, which is exactly the
+VOLUME 14, 2026
+159621

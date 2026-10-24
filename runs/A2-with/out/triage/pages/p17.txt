@@ -1,0 +1,157 @@
+[15] T. Formal, B. Piwowarski, and S. Clinchant, “SPLADE: Sparse lexical
+and expansion model for first stage ranking,” in Proceedings of the 44th
+International ACM SIGIR Conference on Research and Development in
+Information Retrieval, pp. 2288–2292, 2021.
+[16] T. Formal, C. Lassance, B. Piwowarski, and S. Clinchant, “From distilla-
+tion to hard negative sampling: Making sparse neural IR models more ef-
+fective,” in Proceedings of the 45th International ACM SIGIR Conference
+on Research and Development in Information Retrieval, pp. 2353–2359,
+2022.
+[17] E. A. Fox and J. A. Shaw, “Combination of multiple searches,” in Proceed-
+ings of the Second Text REtrieval Conference (TREC-2), pp. 243–252,
+1994.
+[18] J. H. Lee, “Analyses of multiple evidence combination,” in Proceedings of
+the 20th Annual International ACM SIGIR Conference on Research and
+Development in Information Retrieval, pp. 267–276, 1997.
+[19] C. C. Vogt and G. W. Cottrell, “Fusion via a linear combination of scores,”
+Information Retrieval, vol. 1, no. 3, pp. 151–173, 1999.
+[20] Elastic, “Hybrid search.” https://www.elastic.co/docs/solutions/search/
+hybrid-search, 2026. Elasticsearch documentation; accessed 2026-09-02.
+[21] Elastic, “Reciprocal rank fusion.” https://www.elastic.co/docs/reference/
+elasticsearch/rest-apis/reciprocal-rank-fusion, 2026. Elasticsearch refer-
+ence; accessed 2026-09-02.
+[22] Microsoft, “Hybrid search scoring (RRF) in Azure AI Search.” https://
+learn.microsoft.com/en-us/azure/search/hybrid-search-ranking, 2026. Ac-
+cessed 2026-09-02.
+[23] LangChain, “EnsembleRetriever (weighted reciprocal rank fusion).”
+https://github.com/langchain-ai/langchain/blob/master/libs/langchain/
+langchain_classic/retrievers/ensemble.py, 2026. Accessed 2026-09-02.
+[24] Qdrant, “Hybrid queries (Query API: RRF and DBSF fusion).” https:
+//qdrant.tech/documentation/concepts/hybrid-queries/, 2026.
+Accessed
+2026-09-02.
+[25] Pinecone, “Hybrid search; reciprocal rank fusion.” https://docs.pinecone.
+io/guides/search/hybrid-search, 2026. Accessed 2026-09-02.
+[26] Milvus, “Reranking (WeightedRanker and RRFRanker).” https://milvus.
+io/docs/reranking.md, 2026. Accessed 2026-09-02.
+[27] LlamaIndex, “QueryFusionRetriever: Reciprocal rerank fusion retriever.”
+https://developers.llamaindex.ai/python/examples/retrievers/reciprocal_
+rerank_fusion/, 2026. Accessed 2026-09-02.
+[28] K. Ran, S. Sun, K. N. Dinh Anh, D. Spina, and O. Zendel, “RMIT-ADM+S
+at the SIGIR 2025 LiveRAG challenge,” arXiv preprint arXiv:2506.14516,
+2025.
+[29] D. Carmel, S. Filice, G. Horowitz, Y. Maarek, O. Somekh, R. Tavory,
+M. Ghissassi, E. Liberty, and R. Miara, “SIGIR 2025 – LiveRAG challenge
+report,” arXiv preprint arXiv:2507.04942, 2025.
+[30] Z. Rackauckas, “RAG-Fusion: A new take on retrieval-augmented gener-
+ation,” arXiv preprint arXiv:2402.03367, 2024.
+[31] S. Meng and D. Ilvovsky, “Sifei at SemEval-2026 Task 8: Hybrid
+retrieval and query rewriting for multi-turn RAG,” arXiv preprint
+arXiv:2606.28352, 2026.
+[32] S. Paramés-Estévez, N. Filloy-Montesino, J. Fernández-Fabeiro, and J. C.
+Mouriño-Gallego, “FRAGATA: Semantic retrieval of HPC support tickets
+via hybrid RAG over 20 years of request tracker history,” arXiv preprint
+arXiv:2604.13721, 2026.
+[33] C. S. Mala, G. Gezici, and F. Giannotti, “Hybrid retrieval for hallucination
+mitigation in large language models: A comparative analysis,” arXiv
+preprint arXiv:2504.05324, 2025.
+[34] OpenSearch Project, “Hybrid search; normalization processor; score
+ranker
+processor.”
+https://docs.opensearch.org/latest/vector-search/
+ai-search/hybrid-search/, 2026. Accessed 2026-09-02.
+[35] Weaviate,
+“Hybrid
+search.”
+https://docs.weaviate.io/weaviate/search/
+hybrid, 2026. Accessed 2026-09-02.
+[36] D. Kulawiak and J.-P. Hwang, “Unlocking the power of hybrid search—
+a deep dive into Weaviate’s fusion algorithms.” https://weaviate.io/blog/
+hybrid-search-fusion-algorithms, 2023. Accessed 2026-09-02.
+[37] Vespa.ai, “Hybrid text search tutorial.” https://docs.vespa.ai/en/learn/
+tutorials/hybrid-search.html, 2026. Accessed 2026-09-02.
+[38] M. E. Renda and U. Straccia, “Web metasearch: Rank vs. score based rank
+aggregation methods,” in Proceedings of the 2003 ACM Symposium on
+Applied Computing (SAC), pp. 841–846, 2003.
+[39] M. Montague and J. A. Aslam, “Relevance score normalization for
+metasearch,” in Proceedings of the 10th International Conference on
+Information and Knowledge Management (CIKM), pp. 427–433, 2001.
+[40] R. Manmatha, T. Rath, and F. Feng, “Modeling score distributions for com-
+bining the outputs of search engines,” in Proceedings of the 24th Annual
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+International ACM SIGIR Conference on Research and Development in
+Information Retrieval, pp. 267–275, 2001.
+[41] A. Arampatzis and J. Kamps, “A signal-to-noise approach to score normal-
+ization,” in Proceedings of the 18th ACM Conference on Information and
+Knowledge Management (CIKM), pp. 797–806, 2009.
+[42] S. Wu, Y. Bi, X. Zeng, and L. Han, “Assigning appropriate weights
+for the linear combination data fusion method in information retrieval,”
+Information Processing & Management, vol. 45, no. 4, pp. 413–426, 2009.
+[43] X. Ma, K. Sun, R. Pradeep, and J. Lin, “A replication study of dense
+passage retriever,” arXiv preprint arXiv:2104.05740, 2021.
+[44] T. Chen, M. Zhang, J. Lu, M. Bendersky, and M. Najork, “Out-of-domain
+semantics to the rescue! Zero-Shot hybrid retrieval models,” in Advances
+in Information Retrieval (ECIR 2022), 2022.
+[45] S. Bruch, S. Gai, and A. Ingber, “An analysis of fusion functions for hybrid
+retrieval,” ACM Transactions on Information Systems, vol. 42, no. 1,
+pp. 20:1–20:35, 2024.
+[46] A. Shtok, O. Kurland, D. Carmel, F. Raiber, and G. Markovits, “Predict-
+ing query performance by query-drift estimation,” ACM Transactions on
+Information Systems, vol. 30, no. 2, pp. 1–35, 2012.
+[47] Y. Zhou and W. B. Croft, “Query performance prediction in web search
+environments,” in Proceedings of the 30th Annual International ACM SI-
+GIR Conference on Research and Development in Information Retrieval,
+pp. 543–550, 2007.
+[48] G. Faggioli, T. Formal, S. Marchesin, S. Clinchant, N. Ferro, and B. Pi-
+wowarski, “Query performance prediction for neural IR: Are we there
+yet?,” in Advances in Information Retrieval (ECIR 2023), pp. 232–248,
+2023.
+[49] P. Santra, P. Basuchowdhuri, and D. Ganguly, “Beyond correlations: A
+downstream evaluation framework for query performance prediction,”
+arXiv preprint arXiv:2601.17339, 2026.
+[50] A. Mallen, A. Asai, V. Zhong, R. Das, D. Khashabi, and H. Hajishirzi,
+“When not to trust language models: Investigating effectiveness of para-
+metric and non-parametric memories,” in Proceedings of the 61st Annual
+Meeting of the Association for Computational Linguistics (ACL), 2023.
+[51] H. Lee, L. Soldaini, A. Cohan, M. Seo, and K. Lo, “RouterRetriever:
+Routing over a mixture of expert embedding models,” in Proceedings of
+the AAAI Conference on Artificial Intelligence, 2025.
+[52] S. Jeong, J. Baek, S. Cho, S. J. Hwang, and J. C. Park, “Adaptive-RAG:
+Learning to adapt retrieval-augmented large language models through
+question complexity,” in Proceedings of the 2024 Conference of the North
+American Chapter of the Association for Computational Linguistics: Hu-
+man Language Technologies (NAACL), 2024.
+[53] A. Hashmi, “Adaptive query routing: A tier-based framework for hybrid
+retrieval across financial, legal, and medical documents,” arXiv preprint
+arXiv:2604.14222, 2026.
+[54] J. S. Kalra, X. Zhao, T. E. Kim, F. Cai, F. Diaz, and T. Wu, “MoR:
+Better handling diverse queries with a mixture of sparse, dense, and human
+retrievers,” in Proceedings of the 2025 Conference on Empirical Methods
+in Natural Language Processing, pp. 11971–11990, 2025.
+[55] J. Kim, S. Yoon, X.-B. Le, Y. Nam, D. Kim, H. Song, and J.-G. Lee,
+“QuDAR: Query-wise dual-perspective adaptive retrieval,” in Proceedings
+of the 64th Annual Meeting of the Association for Computational Linguis-
+tics (ACL), pp. 38662–38679, 2026.
+[56] P. Posokhov, S. Skrylnikov, S. M. Masliukhin, A. Zavgorodniaia, O. Koro-
+teeva, and Y. Matveev, “Query-adaptive hybrid search,” Machine Learning
+and Knowledge Extraction, vol. 8, no. 4, p. 91, 2026.
+[57] L. Wang, P. N. Bennett, and K. Collins-Thompson, “Robust ranking
+models via risk-sensitive optimization,” in Proceedings of the 35th In-
+ternational ACM SIGIR Conference on Research and Development in
+Information Retrieval (SIGIR), pp. 761–770, 2012.
+[58] B. T. Dinçer, C. Macdonald, and I. Ounis, “Hypothesis testing for the
+risk-sensitive evaluation of retrieval systems,” in Proceedings of the 37th
+International ACM SIGIR Conference on Research and Development in
+Information Retrieval (SIGIR), pp. 23–32, 2014.
+[59] A. Louis, G. van Dijck, and G. Spanakis, “Know when to fuse: Investigat-
+ing non-English hybrid retrieval in the legal domain,” in Proceedings of the
+31st International Conference on Computational Linguistics (COLING),
+pp. 4293–4312, 2025.
+[60] M. Wang, B. Tan, Y. Gao, H. Jin, Y. Zhang, X. Ke, X. Xu, and Y. Zhu,
+“Balancing the blend: An experimental analysis of trade-offs in hybrid
+search,” arXiv preprint arXiv:2508.01405, 2025.
+[61] J. Lin, R. Nogueira, and A. Yates, Pretrained Transformers for Text
+Ranking: BERT and Beyond. Synthesis Lectures on Human Language
+Technologies, Morgan & Claypool, 2021.
+159636
+VOLUME 14, 2026

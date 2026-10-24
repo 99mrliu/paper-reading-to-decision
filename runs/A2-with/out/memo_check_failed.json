@@ -1,0 +1,65 @@
+{
+  "status": "fail",
+  "violations": [
+    {
+      "line": 11,
+      "error": "0.7 absent from C1"
+    },
+    {
+      "line": 13,
+      "error": "0.7 absent from C17"
+    },
+    {
+      "line": 25,
+      "error": "0.003 absent from C6"
+    },
+    {
+      "line": 26,
+      "error": "0.010 absent from C6"
+    },
+    {
+      "line": 27,
+      "error": "0.011 absent from C6"
+    },
+    {
+      "line": 32,
+      "error": "0.018 absent from C6"
+    },
+    {
+      "line": 40,
+      "error": "0.6 absent from C3"
+    },
+    {
+      "line": 40,
+      "error": "0.5 absent from C3"
+    },
+    {
+      "line": 55,
+      "error": "-0.05 absent from context"
+    },
+    {
+      "line": 58,
+      "error": "-0.005 absent from context"
+    }
+  ],
+  "used_claims": [
+    "C1",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9"
+  ],
+  "scope": "numeric references only; source meaning and table alignment require review"
+}

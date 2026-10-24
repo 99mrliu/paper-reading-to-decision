@@ -1,0 +1,24 @@
+{
+  "status": "ok",
+  "layout_engine": "poppler",
+  "layout_warning": null,
+  "pages": 18,
+  "text_pages": 18,
+  "chars": 100437,
+  "tables_pages": [
+    4,
+    5,
+    7,
+    8,
+    9,
+    11,
+    12,
+    14
+  ],
+  "figure_pages": [
+    7,
+    9,
+    10
+  ],
+  "sha256": "9518ccdbac3a4e4d89a431f87837b6ea67b976319d68a342108abb62b47e5993"
+}

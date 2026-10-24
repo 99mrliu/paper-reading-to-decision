@@ -1,0 +1,78 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+
+
+
+                                                            Interp(0.7)                                                       RRF
+                                    70                                                           70
+
+
+                                    60                                                           60
+
+
+
+
+       Queries hurt by fusion (%)
+                                    50                                                           50
+
+
+                                    40                                                           40
+
+
+                                    30                                                           30
+
+
+                                    20                                                           20
+                                                                                                                                        SciFact           SciDocs
+                                    10                                                           10                                     FiQA              TREC-COVID
+                                                                                                                                        NFCorpus          Quora
+                                                                                                                                        ArguAna
+                                    0                                                            0
+                                         22M   33M            110M                 335M   596M        22M   33M             110M                   335M        596M
+                                                     Dense encoder size (params)                                   Dense encoder size (params)
+
+
+FIGURE 3. Fusion tax (% of queries hurt) as a function of dense-encoder size (log scale) for interpolation (left) and RRF (right), all seven corpora. The tax does not
+shrink as encoders scale from 22M to 596M parameters.
+
+
+
+mentary Table S8), so the conclusion does not depend on                                          BM25 on six corpora (e.g. 0.708 vs. 0.665 on SciFact, 0.356
+the prefix protocol. Qwen3-Embedding, a 596M-parameter                                           vs. 0.236 on FiQA, 0.725 vs. 0.656 on TREC-COVID) and
+model of the 2025 generation, continues the pattern rather                                       ties it on SciDocs, and SPLADE+dense interpolation beats
+than breaking it: interpolation hurts 14–43% of its queries                                      dense-only in aggregate on six corpora and ties it on Quora.
+(SciFact 19%, FiQA 28%, NFCorpus 43%, ArguAna 33%,                                               Yet interpolation’s tax does not abate: SPLADE+dense inter-
+SciDocs 37%, TREC-COVID 26%, Quora 14%) and RRF                                                  polation hurts 14–41% of queries on six corpora and 60% on
+20–47%, while fusion beats Qwen3 alone in aggregate on                                           TREC-COVID, comparable to or higher than BM25+dense
+five corpora, falls marginally short of it on SciDocs (0.225                                     on five of the seven and lower by under three points on the
+vs. 0.227), and loses to it on ArguAna (0.638 vs. 0.674),                                        other two (ArguAna, SciDocs). Interpolation’s tax is thus
+where Qwen3 is the strongest encoder in the study and even                                       intrinsic to score fusion, robust to strengthening either side.
+the dense-heavy weight dilutes it with a BM25 that scores                                        For RRF the picture is different in kind. With the standard
+0.414. Where its tax differs from BGE-small’s, it moves with                                     Anserini BM25 the sparse upgrade moves RRF’s tax by only
+the sparse–dense balance rather than with encoder quality: it                                    −6.2 to +7.1 points, lowering it on four corpora (most on
+is highest where Qwen3 barely leads BM25 (NFCorpus, 0.36                                         ArguAna, 33.9% vs. 40.1%) and raising it on three. The
+vs. 0.33; 43%) and lowest where Qwen3 dominates (TREC-                                           large RRF reductions that upgrading a weak lexical baseline
+COVID, 0.89 vs. 0.66, 26%; Quora, 0.87 vs. 0.79, 14%),                                           produces are visible in the BM25 swap itself: moving from
+exactly as Section V-B predicts; ArguAna, where Qwen3                                            rank_bm25 to Anserini lowered RRF’s tax from 25–48%
+leads BM25 by 0.26, sits in between at 33% and has the                                           to 20–40% and raised its nDCG@10 on every corpus while
+largest aggregate loss from interpolation relative to Qwen3;                                     changing interpolation’s tax by at most 5.3 points (Supple-
+SciDocs also shows a smaller loss (Table 9). The five-encoder                                    mentary Table S1). RRF’s tax therefore responds to the
+picture is consistent on the claim that matters: strengthening                                   quality of the lexical component in a way interpolation’s
+the dense retriever by an order of magnitude, or moving to a                                     does not, which is consistent with rank fusion’s inability to
+newer generation, never removes the tax, and what changes                                        discount a weak component’s confident-looking ranks; once
+it is the balance between the two retrievers. On ArguAna,                                        the lexical side is standard, however, a substantial RRF tax
+where a weak BM25 had let dense-only beat fusion at every                                        remains (19–46% with SPLADE).
+scale, the standard BM25 closes that gap (dense 0.636 vs.
+interpolation 0.636–0.638 at base and large), yet 28–29% of                                      G. IS FUSION FAILURE PREDICTABLE?
+its queries still pay the tax.
+                                                                                                 If fusion failure were predictable from cheap query features,
+                                                                                                 a practitioner could route around it. Table 12 reports the
+F. ROBUSTNESS TO THE SPARSE METHOD: SPLADE                                                       held-out ROC-AUC of the gradient-boosted classifier of Sec-
+The ladder rules out a weak dense model; we now rule out a                                       tion IV-E, within a corpus (5-fold) and across corpora (leave-
+weak sparse one by replacing BM25 with SPLADE [16] as                                            one-corpus-out). Within a corpus, failure is weakly pre-
+the sparse side of fusion with BGE-small on all seven corpora                                    dictable: mean AUC 0.63 for the interpolation label and 0.58
+(Table 10). Pairing a learned-sparse retriever with a dense                                      for RRF, reaching 0.80 on Quora, so the features carry signal.
+one is not new (Bruch et al. include SPLADE among their                                          Across corpora, transfer is unreliable: the mean drops to
+components); the contribution is the per-component attribu-                                      0.59 and 0.57, but the mean hides the problem, which is
+tion of the tax. SPLADE is a stronger sparse retriever than                                      variance. Cross-corpus AUC ranges from 0.49 (NFCorpus,
+VOLUME 14, 2026                                                                                                                                                        159629
+

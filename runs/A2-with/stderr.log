@@ -1,0 +1,9 @@
+2026-10-23T07:57:23.509513Z ERROR codex_core::session::session: failed to load skill /Users/liuhengshen/.codex/skills/ima-skill/knowledge-base/SKILL.md: missing YAML frontmatter delimited by ---
+2026-10-23T07:57:23.509568Z ERROR codex_core::session::session: failed to load skill /Users/liuhengshen/.codex/skills/ima-skill/notes/SKILL.md: missing YAML frontmatter delimited by ---
+2026-10-23T07:57:28.372377Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested/codex?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested/codex?scope=GLOBAL)
+2026-10-23T07:57:28.372476Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+2026-10-23T07:57:33.372529Z  WARN codex_core_plugins::manager: failed to warm featured plugin ids cache error=failed to send remote featured plugin request to https://chatgpt.com/backend-api/plugins/featured?platform=codex: error sending request for url (https://chatgpt.com/backend-api/plugins/featured?platform=codex)
+2026-10-23T07:57:33.520889Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-10-23T07:57:53.469721Z  WARN codex_core_plugins::manager: failed to refresh cached remote plugin catalog error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/list?scope=GLOBAL&limit=200: error decoding response body scope=Global
+2026-10-23T07:57:56.006524Z  WARN codex_mcp::rmcp_client: MCP server startup failed server_name="codex_apps" error=timed out awaiting tools/list after 30s
+2026-10-23T08:02:03.383416Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out

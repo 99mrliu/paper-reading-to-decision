@@ -1,0 +1,126 @@
+{
+  "status": "pass",
+  "claims": [
+    {
+      "id": "C1",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C2",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C3",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C4",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C5",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C6",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C7",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C8",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C9",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C10",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C11",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C12",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C13",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C14",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C15",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C16",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C17",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C18",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C19",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C20",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C21",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C22",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C23",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "id": "C24",
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "scope": "literal quoted evidence and finite arithmetic only; comparator/table semantics require review"
+}

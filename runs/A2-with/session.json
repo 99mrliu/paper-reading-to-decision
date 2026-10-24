@@ -1,0 +1,34 @@
+{
+  "run": "A2-with",
+  "case": "A",
+  "condition": "with_skill",
+  "started_at": "2026-10-23T07:57:23.183187+00:00",
+  "duration_seconds": 348.958,
+  "exit_code": 0,
+  "timed_out": false,
+  "thread_id": "01a167c3-bc2e-7ed1-a8f6-729e99d330ab",
+  "native_session_captured": true,
+  "model": "gpt-6.1-sol",
+  "model_version": "exact service snapshot unavailable",
+  "harness": "codex-cli 0.163.0-alpha.11.2",
+  "independent_session": true,
+  "tool_calls_visible": 16,
+  "operation_budget_note": "30-operation instruction; visible JSONL is a lower bound, not hard-enforced. Wall-time timeout enforced.",
+  "usage": {
+    "input_tokens": 964013,
+    "cached_input_tokens": 879872,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 10399,
+    "reasoning_output_tokens": 1130
+  },
+  "cost": null,
+  "cost_note": "No billed amount exposed",
+  "report_exists": true,
+  "human_steps": [],
+  "invalid_environment_keys_removed": [
+    "SCRCPY_SERVER_PATH"
+  ],
+  "skill_tree_sha256": "2ad71989b3535e35d095f0d965c7b2cf818685c472d13bc8149762925bf65411",
+  "task_sha256": "31ad1afdd97f076c0865f59c30783534bb8e8c8e3f2481f7a306479ab837e5d5",
+  "input_sha256": "9518ccdbac3a4e4d89a431f87837b6ea67b976319d68a342108abb62b47e5993"
+}

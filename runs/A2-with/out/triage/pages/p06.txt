@@ -1,0 +1,113 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+A. BASELINE VALIDATION
+Table 3 validates the single retrievers. Our BM25 runs repro-
+duce the published Anserini BM25 nDCG@10 [14] to four
+decimals on all seven corpora, so the sparse side is exactly the
+reference pipeline used throughout the BEIR literature. The
+Python rank_bm25 runs are 0.01–0.20 lower, most severely
+on TREC-COVID (0.459 vs. 0.656); Supplementary Table S1
+repeats the headline per-query analysis under all three BM25
+implementations and shows that every qualitative finding
+below survives the swap, with one substantive change that
+we flag where it occurs (TREC-COVID, Section V-B). Dense
+nDCG@10 rises from BGE-small to BGE-base on six cor-
+pora and from base to large on FiQA (0.391→0.443), and
+is otherwise flat within 0.005 or slightly lower (by up to
+0.028 on TREC-COVID); the exception is Quora, where
+the prefix-free protocol costs BGE-base and BGE-large 0.06
+that the query instruction restores (Section V-E, Supplemen-
+tary Table S8). The 2025-generation Qwen3-Embedding, run
+with its model card’s generic retrieval instruction, is the
+strongest encoder in the study on FiQA, ArguAna, SciDocs,
+and TREC-COVID (0.467, 0.674, 0.227, 0.892) and weaker
+than the BGE models on SciFact, NFCorpus, and Quora
+(0.699, 0.355, 0.872). The ladder therefore provides gen-
+uinely stronger retrieval on most corpora, with diminishing
+returns within the BGE family.
+B. FUSION METHOD COMPARISON AND THE
+INTERPOLATION WEIGHT
+Table 5 reports nDCG@10 for every method with BGE-
+small. The aggregate picture replicates Bruch et al. [45]
+where their conditions hold and departs from it where they
+do not. Dense-weighted interpolation (α = 0.7) is the best
+fusion method on five of the seven corpora, all of them
+corpora on which dense retrieval leads BM25 clearly, by
+0.04–0.18 nDCG@10 (0.039 on SciDocs): SciFact, FiQA,
+ArguAna, SciDocs, and Quora; its advantage over RRF is
+significant on four of the five after Bonferroni correction
+(Supplementary Table S4: FiQA, ArguAna, SciDocs, Quora,
+p < 0.001; SciFact p = 0.07). On the two corpora where
+the two components are balanced, the picture reverses: on
+NFCorpus (BM25 0.325 vs. dense 0.337) the three fusion
+methods are within 0.003 of one another, and on TREC-
+COVID (0.656 vs. 0.666) rank fusion and CombMNZ (0.801
+and 0.805) beat dense-heavy interpolation (0.717) and dense-
+only (0.666) by a wide and significant margin (p = 0.002).
+This is the classical prediction of the calibration literature
+(Section II-C): score interpolation wins when one component
+is reliably stronger and its confidence should be kept, rank
+fusion when neither should dominate. RRF is also frequently
+no better than the dense retriever alone: it trails dense-only on
+five corpora (significantly on ArguAna and Quora) and beats
+it only on the two balanced ones.
+The interpolation optimum is interior and transfers
+across corpora. Two questions arise: whether the optimum
+is really interior rather than dense-only, and whether a weight
+chosen on one set of queries survives on another. Sweeping
+α from 0.5 to 1.0 (Supplementary Table S7) answers the first:
+the in-sample optimum is 0.7 on four corpora, 0.6 on NFCor-
+pus, 0.8 on ArguAna, and 0.5 on TREC-COVID, never 1.0,
+and dense-only is strictly worse than the best interpolation on
+every corpus (e.g. FiQA 0.409 vs. 0.385, ArguAna 0.605 vs.
+0.595, TREC-COVID 0.748 vs. 0.666); per query the optimal
+weight is rarely unique, because nDCG@10 is discrete: on
+23–58% of queries every weight on the 0.1 grid scores
+the same (2% on TREC-COVID), dense-only (α = 1) is
+among the optimal weights on 52–84% of queries on six
+corpora (18% on TREC-COVID), some fused weight strictly
+beats dense-only on 16–48% (82% on TREC-COVID), a
+strictly interior weight is required on 8–30% (70% on TREC-
+COVID), and a near-dense weight (α ≥0.9) is strictly
+required on only 6–16%. Table 4 answers the second with
+two held-out protocols. Under leave-one-corpus-out (LOCO)
+selection, the weight chosen on the other six corpora is 0.6 or
+0.7 for every held-out corpus, and applying it costs at most
+0.014 nDCG@10 relative to the in-sample optimum on six
+corpora (the largest, ArguAna, 0.605 vs. 0.591) and 0.031
+on TREC-COVID, the one corpus whose in-sample optimum
+(α = 0.5) lies outside the transferred range; under within-
+corpus 5-fold cross-validation the selected weight coincides
+with the in-sample optimum on every corpus (SciFact’s folds
+vary between 0.5 and 0.9, with mode 0.7) and the held-out
+nDCG@10 is within 0.010 of it. At the held-out weights the
+deployable tax is 10.6–25.0% (LOCO) and 8.2–26.0% (CV),
+against 8.2–20.9% at the fixed α = 0.7: on five corpora the
+transferred weight, being slightly less dense-heavy than the
+in-sample optimum, raises it by 2–6 points, and the oracle
+tax at the held-out weights is 14–48% (LOCO) and 13–
+46% (CV). A dense-heavy weight of 0.6–0.7 is therefore a
+defensible transferable default, and the tax reported below
+is not an artifact of selecting the weight on the evaluation
+queries; if anything, a weight chosen elsewhere pays slightly
+more. The one corpus that prefers a balanced weight, TREC-
+COVID, illustrates the trade-off: moving to α = 0.5 raises
+its mean nDCG@10 from 0.717 to 0.748 while raising the
+fraction of queries that fall below dense-only from 14% to
+26%.
+C. DIAGNOSTIC TAXONOMY
+Table 6 gives the quadrant distribution and Fig. 1 the per-
+query landscape. Both-Win ranges from 42% (FiQA) to
+100% (TREC-COVID). Dense-Only is substantial on the
+paraphrase-heavy and question-style corpora (ArguAna 20%,
+FiQA 23%, SciDocs 17%), whereas Sparse-Only never ex-
+ceeds 7%: dense retrieval rarely misses a query that BM25
+covers, even against a standard BM25. This asymmetry is
+itself a caution for hybridization: the queries covered by
+sparse alone form only a small share, although fusion can
+also recover coverage in Both-Fail (12 queries on ArguAna,
+8 on SciDocs); its reordering upside lives in the much larger
+Both-Win quadrant, where a query can be helped or hurt, and
+its dilution risk lives in Both-Win too (on TREC-COVID,
+with no Sparse-Only queries at all, fusion still helps 36 of
+VOLUME 14, 2026
+159625

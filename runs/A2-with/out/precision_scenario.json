@@ -1,0 +1,10 @@
+{
+  "status": "ok",
+  "sd": 0.2,
+  "n": 400,
+  "confidence": 0.95,
+  "approx_half_width": 0.019599639845400536,
+  "target_half_width": 0.005,
+  "n_for_target_half_width": 6147,
+  "scope": "Independent paired observations, normal approximation; estimated SD must match the actual comparison. Not a power calculation or guaranteed sample size."
+}

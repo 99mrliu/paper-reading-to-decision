@@ -1,0 +1,189 @@
+{
+  "rows": [
+    {
+      "label": "SciFact",
+      "values": {
+        "FirstDense": "0.720",
+        "FirstInterp": "0.731",
+        "RerankDense": "0.739",
+        "RerankInterp": "0.738",
+        "RerankRRF": "0.740",
+        "InterpBefore": "10.0",
+        "InterpAfter": "6.7",
+        "InterpNet": "33",
+        "RRFBefore": "15.3",
+        "RRFAfter": "8.3",
+        "RRFNet": "46"
+      },
+      "raw": "                       SciFact          0.720   0.731   0.739     0.738   0.740         10.0     6.7      33      15.3      8.3          46"
+    },
+    {
+      "label": "FiQA",
+      "values": {
+        "FirstDense": "0.385",
+        "FirstInterp": "0.409",
+        "RerankDense": "0.426",
+        "RerankInterp": "0.429",
+        "RerankRRF": "0.426",
+        "InterpBefore": "14.7",
+        "InterpAfter": "15.6",
+        "InterpNet": "-6",
+        "RRFBefore": "30.4",
+        "RRFAfter": "19.9",
+        "RRFNet": "34"
+      },
+      "raw": "                       FiQA             0.385   0.409   0.426     0.429   0.426         14.7    15.6      -6      30.4     19.9          34"
+    },
+    {
+      "label": "NFCorpus",
+      "values": {
+        "FirstDense": "0.337",
+        "FirstInterp": "0.355",
+        "RerankDense": "0.340",
+        "RerankInterp": "0.350",
+        "RerankRRF": "0.354",
+        "InterpBefore": "18.3",
+        "InterpAfter": "10.8",
+        "InterpNet": "41",
+        "RRFBefore": "23.8",
+        "RRFAfter": "21.7",
+        "RRFNet": "9"
+      },
+      "raw": "                       NFCorpus         0.337   0.355   0.340     0.350   0.354         18.3    10.8      41      23.8     21.7           9"
+    },
+    {
+      "label": "ArguAna",
+      "values": {
+        "FirstDense": "0.595",
+        "FirstInterp": "0.603",
+        "RerankDense": "0.479",
+        "RerankInterp": "0.490",
+        "RerankRRF": "0.548",
+        "InterpBefore": "19.1",
+        "InterpAfter": "1.8",
+        "InterpNet": "90",
+        "RRFBefore": "32.9",
+        "RRFAfter": "4.4",
+        "RRFNet": "87"
+      },
+      "raw": "                       ArguAna          0.595   0.603   0.479     0.490   0.548         19.1     1.8      90      32.9      4.4          87"
+    },
+    {
+      "label": "SciDocs",
+      "values": {
+        "FirstDense": "0.197",
+        "FirstInterp": "0.207",
+        "RerankDense": "0.190",
+        "RerankInterp": "0.190",
+        "RerankRRF": "0.184",
+        "InterpBefore": "20.9",
+        "InterpAfter": "21.0",
+        "InterpNet": "0",
+        "RRFBefore": "27.6",
+        "RRFAfter": "26.8",
+        "RRFNet": "3"
+      },
+      "raw": "                       SciDocs          0.197   0.207   0.190     0.190   0.184         20.9    21.0       0      27.6     26.8           3"
+    },
+    {
+      "label": "TREC-COVID",
+      "values": {
+        "FirstDense": "0.666",
+        "FirstInterp": "0.717",
+        "RerankDense": "0.808",
+        "RerankInterp": "0.826",
+        "RerankRRF": "0.852",
+        "InterpBefore": "14.0",
+        "InterpAfter": "22.0",
+        "InterpNet": "-57",
+        "RRFBefore": "26.0",
+        "RRFAfter": "26.0",
+        "RRFNet": "0"
+      },
+      "raw": "                       TREC-COVID       0.666   0.717   0.808     0.826   0.852         14.0    22.0     -57      26.0     26.0           0"
+    },
+    {
+      "label": "Quora",
+      "values": {
+        "FirstDense": "0.891",
+        "FirstInterp": "0.901",
+        "RerankDense": "0.893",
+        "RerankInterp": "0.893",
+        "RerankRRF": "0.892",
+        "InterpBefore": "9.2",
+        "InterpAfter": "0.6",
+        "InterpNet": "94",
+        "RRFBefore": "17.7",
+        "RRFAfter": "1.5",
+        "RRFNet": "92"
+      },
+      "raw": "                       Quora            0.891   0.901   0.893     0.893   0.892          9.2     0.6      94      17.7      1.5          92"
+    }
+  ],
+  "ranges": {
+    "FirstDense": {
+      "min": "0.197",
+      "max": "0.891"
+    },
+    "FirstInterp": {
+      "min": "0.207",
+      "max": "0.901"
+    },
+    "RerankDense": {
+      "min": "0.190",
+      "max": "0.893"
+    },
+    "RerankInterp": {
+      "min": "0.190",
+      "max": "0.893"
+    },
+    "RerankRRF": {
+      "min": "0.184",
+      "max": "0.892"
+    },
+    "InterpBefore": {
+      "min": "9.2",
+      "max": "20.9"
+    },
+    "InterpAfter": {
+      "min": "0.6",
+      "max": "22.0"
+    },
+    "InterpNet": {
+      "min": "-57",
+      "max": "94"
+    },
+    "RRFBefore": {
+      "min": "15.3",
+      "max": "32.9"
+    },
+    "RRFAfter": {
+      "min": "1.5",
+      "max": "26.8"
+    },
+    "RRFNet": {
+      "min": "0",
+      "max": "92"
+    }
+  },
+  "table": 13,
+  "n_rows": 7,
+  "warning": "Column order/meaning supplied by reader; verify original header. No semantic certification.",
+  "source_sha256": "e04afb2c3b44d4bf5dd86f5d2c31df70fd82be2c96772b0a7bb6db05bf0a01c3",
+  "difference": {
+    "left": "RerankInterp",
+    "right": "RerankDense",
+    "by_row": {
+      "SciFact": "-0.001",
+      "FiQA": "0.003",
+      "NFCorpus": "0.010",
+      "ArguAna": "0.011",
+      "SciDocs": "0.000",
+      "TREC-COVID": "0.018",
+      "Quora": "0.000"
+    },
+    "min": "-0.001",
+    "max": "0.018"
+  },
+  "status": "ok"
+}

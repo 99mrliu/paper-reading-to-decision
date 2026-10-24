@@ -1,0 +1,269 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+TABLE 11. Per-corpus GBT feature importance for predicting interpolation failure (bold: top-3 per corpus). Superscripts give the sign of the feature’s Spearman
+association with failure (|ρ| ≥0.05); the last column counts corpora with positive/negative association.
+Feature
+SciFact
+FiQA
+NFCorpus ArguAna SciDocs TREC-COVID Quora +/−
+dense margin
+0.18−
+0.07−
+0.04
+0.08−
+0.06
+0.14+
+0.35−
+1/4
+score-ratio α
+0.06−
+0.11
+0.06+
+0.07−
+0.07
+0.10+
+0.05−
+2/3
+mean IDF
+0.11−
+0.05+
+0.08−
+0.07
+0.07
+0.09
+0.03−
+1/3
+WIG (dense)
+0.04+
+0.06+
+0.07
+0.08+
+0.09+
+0.10−
+0.06+
+5/1
+WIG (BM25)
+0.09
+0.09+
+0.05+
+0.09+
+0.10+
+0.06+
+0.02
+5/0
+centroid dist.
+0.03
+0.07
+0.12−
+0.07
+0.07+
+0.06+
+0.04
+2/1
+dense top-10 mean
+0.06+
+0.07+
+0.07+
+0.07+
+0.09+
+0.02
+0.08+
+6/0
+IDF std
+0.05−
+0.06
+0.05
+0.06
+0.06
+0.13−
+0.03−
+0/3
+BM25 margin
+0.11−
+0.07−
+0.07+
+0.05
+0.07
+0.03−
+0.03−
+1/4
+QPP ratio
+0.05
+0.08−
+0.04−
+0.07−
+0.06
+0.03−
+0.03
+0/4
+dense top-10 std
+0.04−
+0.03
+0.05
+0.04−
+0.05+
+0.05−
+0.09−
+1/4
+NQC (BM25)
+0.04−
+0.06+
+0.08+
+0.06+
+0.05+
+0.01+
+0.03−
+5/2
+NQC (dense)
+0.05−
+0.03
+0.05−
+0.05−
+0.04+
+0.03−
+0.08−
+1/5
+top-10 overlap
+0.02+
+0.03+
+0.08+
+0.02+
+0.02+
+0.06−
+0.03+
+6/1
+entity density
+0.03
+0.04+
+0.02
+0.07
+0.05
+0.02
+0.02
+1/0
+query length
+0.04
+0.04
+0.01+
+0.06
+0.02
+0.02−
+0.01
+1/1
+max IDF
+0.01−
+0.03
+0.06−
+0.00
+0.03
+0.06−
+0.03−
+0/4
+deployable decision is different: whether switching a query
+to dense-only beats fusion. That label is predictable to a
+similar degree (mean AUC 0.61 within a corpus and 0.57
+across, ranging from 0.33 on NFCorpus to 0.66 on Quora;
+Supplementary Table S6), and a router that acts on it does
+not pay. Trained on the six other corpora with its threshold
+chosen on out-of-fold predictions of the training data, it never
+beats static interpolation on the held-out corpus: on three
+corpora (FiQA, SciDocs, TREC-COVID) no held-out query’s
+predicted probability reaches the selected threshold, so it
+routes nothing, on two it routes 1–6% of queries with no
+measurable effect, and on NFCorpus and Quora it routes 35%
+and 23% of queries and loses 0.007 and 0.003 nDCG@10
+(paired 95% intervals excluding zero). Within a corpus it
+stays within 0.001 of static interpolation everywhere, against
+an oracle gain of 0.007–0.041 (Supplementary Table S11).
+This is a negative result for one classifier and threshold
+procedure on these features; it does not rule out a better
+router, but it does mean the tax cannot be routed around with
+the cheap signals we tested.
+Table 11 shows why. The features that matter differ by
+corpus: the dense top-1 margin dominates on SciFact, TREC-
+COVID, and Quora, the BM25 WIG predictor on ArguAna
+and SciDocs (and ranks second on FiQA), the score-ratio
+α on FiQA, and centroid distance on NFCorpus; the mean
+pairwise Spearman correlation between corpora’s importance
+vectors is only 0.28. More damaging still, the direction of as-
+sociation flips: 11 of the 17 features are positively associated
+with failure on at least one corpus and negatively on another
+(mean pairwise Spearman correlation of the association vec-
+tors 0.33). The dense margin is the clearest case: a confident
+dense top-1 predicts a safe query on the dense-dominated
+corpora, where fusion can only dilute it, and a failing query
+on TREC-COVID, where BM25 is equally strong and the
+dense-heavy weight discards evidence. The same signal has
+opposite meanings under different sparse–dense balances,
+TABLE 12. Predicting fusion failure from 17 query features (held-out
+ROC-AUC, BGE-small). In-domain: 5-fold within the corpus; cross-corpus:
+trained on the other six.
+Interp(0.7) failure
+RRF failure
+Dataset
+In-domain
+Cross-corpus
+In-domain
+Cross-corpus
+SciFact
+0.70
+0.74
+0.67
+0.71
+FiQA
+0.58
+0.55
+0.55
+0.57
+NFCorpus
+0.61
+0.49
+0.60
+0.50
+ArguAna
+0.59
+0.60
+0.55
+0.55
+SciDocs
+0.56
+0.56
+0.58
+0.55
+TREC-COVID
+0.55
+0.51
+0.35
+0.53
+Quora
+0.80
+0.70
+0.78
+0.56
+Mean
+0.63
+0.59
+0.58
+0.57
+which is exactly what a corpus-agnostic router cannot learn.
+H. DOES RERANKING PAY THE TAX?
+Table 13 reports the budget-matched reranking experiment
+of Section IV-C. The answer is: partly, and only where the
+reranker is itself reliable. On the three corpora where the
+cross-encoder improves every retrieval arm (SciFact, FiQA,
+TREC-COVID; dense-only rises by 0.019–0.142), reranking
+lowers the prevalence of interpolation’s deployable tax by a
+third on SciFact and not at all on FiQA and TREC-COVID,
+where 16% and 22% of queries still finish below reranked
+dense-only; for RRF the prevalence falls by 46% and 34% on
+SciFact and FiQA and not at all on TREC-COVID. These are
+net changes in how many queries pay the tax, not repairs of
+the original failures: on SciFact 27 of the 30 originally hurt
+queries are no longer hurt after reranking but 17 others be-
+come hurt, on FiQA 75 of 95 are repaired and 81 newly hurt,
+and on TREC-COVID 5 of 7 are repaired and 9 newly hurt
+(Supplementary Table S12), so the reranker largely reshuffles
+which queries pay the tax. On NFCorpus the reranker raises
+dense-only by only 0.003 while lowering both fused arms (in-
+terpolation 0.355→0.350), so the 41% drop in the prevalence
+VOLUME 14, 2026
+159631

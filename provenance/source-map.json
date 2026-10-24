@@ -1,0 +1,340 @@
+{
+  "source_project": "adoption-review 1.1.0",
+  "selected_real_run": "A2-with",
+  "original_native_sha256": "4e2f1f28940c1c69da1ca4fc368f69f64495ff0b5a443758efeacec09a0acb11",
+  "visible_native_sha256": "c7b9b96602f90745b403baa3d273b9201787e893cb7bbee873d28956a5ff6807",
+  "visible_native_rows": 40,
+  "native_filter": "Original response_item records only; internal reasoning, analysis channel, system/developer messages excluded. No invented or rewritten tool events.",
+  "original_cli_events_sha256": "3a31aa3e4b411815ccb8afcb57d4202531ad526386bc2f2859b102e6b67cb1bc",
+  "published_cli_events_sha256": "3a31aa3e4b411815ccb8afcb57d4202531ad526386bc2f2859b102e6b67cb1bc",
+  "cli_filter": "Reasoning items excluded; all other original lines preserved.",
+  "new_independent_model_runs": 0,
+  "unchanged_original_files": {
+    "materials/fusion-tax.pdf": {
+      "original_path": "materials/fusion-tax.pdf",
+      "sha256": "9518ccdbac3a4e4d89a431f87837b6ea67b976319d68a342108abb62b47e5993"
+    },
+    "materials/fusion-tax.txt": {
+      "original_path": "materials/fusion-tax.txt",
+      "sha256": "393a3eaf83f54309ffa6c9262fa47cfeafcecb214b69af26bfe1fae2a305fe09",
+      "raw_copy": "materials/fusion-tax.txt.raw.bin",
+      "published_sha256": "1cf35ab96a490f9059a88921dbac2e81a516142f403f6c19bf8d45c07f363e77",
+      "transport_transform": "NUL bytes displayed literally as \\u0000; original bytes retained in raw_copy"
+    },
+    "cases/A/task.md": {
+      "original_path": "cases/A/task.md",
+      "sha256": "31ad1afdd97f076c0865f59c30783534bb8e8c8e3f2481f7a306479ab837e5d5"
+    },
+    "cases/A/acceptance.md": {
+      "original_path": "cases/A/acceptance.md",
+      "sha256": "b35aa134aa80f8fc20fe54276ea090bd6561595f48e97e8db0290d5d50e33679"
+    },
+    "provenance/original_run_session.py": {
+      "original_path": "run_session.py",
+      "sha256": "977c4a6b55308ee6f6b17c1c40ae3644f457e60366de0497f0fb60fb02511939"
+    },
+    "skill/SKILL.md": {
+      "original_path": "skill/SKILL.md",
+      "sha256": "1b135f67ef4e70ed888a949ecd3dd5f766d000a67751567bd9b41046beca070e"
+    },
+    "skill/references/ledger.md": {
+      "original_path": "skill/references/ledger.md",
+      "sha256": "4f21a341bb4ffaef778e4d642de3f47077543350022c1a88a247e735b823b0f9"
+    },
+    "skill/scripts/check_ledger.py": {
+      "original_path": "skill/scripts/check_ledger.py",
+      "sha256": "394521d1176b1a153a2d16944dca60d909db1457afedad4dd609f0ebcd58ded0"
+    },
+    "skill/scripts/check_memo.py": {
+      "original_path": "skill/scripts/check_memo.py",
+      "sha256": "ecd06f88410e9a4a2ba39ec81ad126a9669c6dcaa19c8c95e63e35dc094cec9e"
+    },
+    "skill/scripts/table_stats.py": {
+      "original_path": "skill/scripts/table_stats.py",
+      "sha256": "7e6afb6bf9958dba52783cc1e35913f052167f3506aaabd9e1e310e316358116"
+    },
+    "skill/scripts/precision.py": {
+      "original_path": "skill/scripts/precision.py",
+      "sha256": "1e6cf2b07334512a7b6c39c97b0ff4d52c79cc2569eb2b5d2517e6edf1bf679d"
+    },
+    "skill/scripts/triage.py": {
+      "original_path": "skill/scripts/triage.py",
+      "sha256": "55bd3516c249b889afcb14f9b6ca8571ec0bad4c155ac7d424992e55ff1eee5d"
+    },
+    "skill/scripts/numeric.py": {
+      "original_path": "skill/scripts/numeric.py",
+      "sha256": "1d7da43b57542b0a90ab0de41d2858b9430ae2c64777013788e6bb9be84a9256"
+    },
+    "runs/A2-with/stderr.log": {
+      "original_path": "runs/A2-with/stderr.log",
+      "sha256": "b14f1379a694931c7c9dd1174e348e99fb64e18dae3c03296a6253b2784107c4"
+    },
+    "runs/A2-with/session.json": {
+      "original_path": "runs/A2-with/session.json",
+      "sha256": "c7bbd94b1bee8ef96d85783318225a65fa42e7dcfb7148bfe41e0de78cbad618"
+    },
+    "runs/A2-with/prompt.txt": {
+      "original_path": "runs/A2-with/prompt.txt",
+      "sha256": "55944bc8d70bd051c1004258b649d8d3b1c222ae3429fcf9f41a357da624df01"
+    },
+    "runs/A2-with/skill/SKILL.md": {
+      "original_path": "runs/A2-with/skill/SKILL.md",
+      "sha256": "1b135f67ef4e70ed888a949ecd3dd5f766d000a67751567bd9b41046beca070e"
+    },
+    "runs/A2-with/out/table8_interp_layout.txt": {
+      "original_path": "runs/A2-with/out/table8_interp_layout.txt",
+      "sha256": "38e1883d46c2d9d40ace6ed3e0e038c4f981efe06dfaf76cf737ede633192dd5"
+    },
+    "runs/A2-with/out/table8_rrf.json": {
+      "original_path": "runs/A2-with/out/table8_rrf.json",
+      "sha256": "3c952c69a1cbad1a299d556aa2baec436037113ce9c74b45a9068d049ae72a24"
+    },
+    "runs/A2-with/out/assistant_final.md": {
+      "original_path": "runs/A2-with/out/assistant_final.md",
+      "sha256": "164551c8f2e4052eb56ddb4dbf46e550584b62ae9202599550694e8596f4272b"
+    },
+    "runs/A2-with/out/build_evidence_failed.py": {
+      "original_path": "runs/A2-with/out/build_evidence_failed.py",
+      "sha256": "199ad4fc51fa55c4983c69dcb9af1ef02cf5f29726100098e9ecc1bc4f711bb6"
+    },
+    "runs/A2-with/out/report.md": {
+      "original_path": "runs/A2-with/out/report.md",
+      "sha256": "6849822951dd2ef75138a07d96414d7a7983f4a22d379b786467d4959c53bc15"
+    },
+    "runs/A2-with/out/table13.json": {
+      "original_path": "runs/A2-with/out/table13.json",
+      "sha256": "264894cbe048ffbf6713b8b9f8fcde7b69b2785761c8114dbfb774fba19d0b34"
+    },
+    "runs/A2-with/out/table8_rrf_layout.txt": {
+      "original_path": "runs/A2-with/out/table8_rrf_layout.txt",
+      "sha256": "9311a5770b9f808804c616cb093dab7324fd10e823448f733aaf584cc25d07cf"
+    },
+    "runs/A2-with/out/build_evidence_failed2.py": {
+      "original_path": "runs/A2-with/out/build_evidence_failed2.py",
+      "sha256": "26f8b990b0ae8282b02f83c9a254c1e819516f2c0dbf9b6f6e4d5ce51f671a4f"
+    },
+    "runs/A2-with/out/table8_rrf_failed.json": {
+      "original_path": "runs/A2-with/out/table8_rrf_failed.json",
+      "sha256": "57c190c6208be443b738c645f03d6ca0ba5b9e239161bb9bace3bfd86a2ac06a"
+    },
+    "runs/A2-with/out/precision_scenario.json": {
+      "original_path": "runs/A2-with/out/precision_scenario.json",
+      "sha256": "65ffe4eb1aec19c64d2cb910621413d647195ea9fc69220a6a797708cf72ab8a"
+    },
+    "runs/A2-with/out/check.json": {
+      "original_path": "runs/A2-with/out/check.json",
+      "sha256": "6e9c65c0db20ddbc3fdebbf62750f7ba3603db62cd02e99b742b777b95ca3ae7"
+    },
+    "runs/A2-with/out/semantic_review.md": {
+      "original_path": "runs/A2-with/out/semantic_review.md",
+      "sha256": "2cf707f642c9405773181b3ed29a2ef9dd2ac8f5d3466f63330d73125bbb6205"
+    },
+    "runs/A2-with/out/failure_notes.md": {
+      "original_path": "runs/A2-with/out/failure_notes.md",
+      "sha256": "079ea3347fef92d1a16ba77d340ed3edd0dcf423f77533aab955b5cf9ef267ff"
+    },
+    "runs/A2-with/out/memo_check.json": {
+      "original_path": "runs/A2-with/out/memo_check.json",
+      "sha256": "8de7f8ecd9950032d62cbe7dbf5bba445468e6ca1cd13a638e44e7c4ef70b488"
+    },
+    "runs/A2-with/out/memo_check_failed.json": {
+      "original_path": "runs/A2-with/out/memo_check_failed.json",
+      "sha256": "acb9a871af1fa814c70487792fb1c8566380f6e58dc77e83af53b8d9815aa6c4"
+    },
+    "runs/A2-with/out/context.json": {
+      "original_path": "runs/A2-with/out/context.json",
+      "sha256": "2c9ed61c086376c174d7326cca24cfdf11532d5246e9808ff08ad0ddb5e1907b"
+    },
+    "runs/A2-with/out/table8_failed.json": {
+      "original_path": "runs/A2-with/out/table8_failed.json",
+      "sha256": "def5790e009add15803ba3164b5c9224e5a356d5bead501145eb12907a26f615"
+    },
+    "runs/A2-with/out/page14.png": {
+      "original_path": "runs/A2-with/out/page14.png",
+      "sha256": "808e16bf605f04a16886675be927bf01b7cd96f79adfcdc15861def81bc3fd6c"
+    },
+    "runs/A2-with/out/build_evidence.py": {
+      "original_path": "runs/A2-with/out/build_evidence.py",
+      "sha256": "d866146cbdb8544d3121999b8c3033ae97d9d7fcfdd3b4b02e8bf7230654647a"
+    },
+    "runs/A2-with/out/ledger.json": {
+      "original_path": "runs/A2-with/out/ledger.json",
+      "sha256": "3b201ecfdb3adbe473c09cbffb1dac6bf7ef4c6c4f3e0451a0ae2fdaea2c1126"
+    },
+    "runs/A2-with/out/table5.json": {
+      "original_path": "runs/A2-with/out/table5.json",
+      "sha256": "1d0bd96fd0d16d350048fcfa9409c905fbca83670b7344621f1206ca5fec4e2b"
+    },
+    "runs/A2-with/out/table8_interp_failed.json": {
+      "original_path": "runs/A2-with/out/table8_interp_failed.json",
+      "sha256": "2a3aa0f0294c04aab3c156bdc776eddbd46dcd49badd4822d076ae012e805a53"
+    },
+    "runs/A2-with/out/table8_interp.json": {
+      "original_path": "runs/A2-with/out/table8_interp.json",
+      "sha256": "c8b6fdde6a1a2c22004a686fc435257ded3eecbe329a2e44c59fed53d20f01ad"
+    },
+    "runs/A2-with/out/report_before_numeric_fix.md": {
+      "original_path": "runs/A2-with/out/report_before_numeric_fix.md",
+      "sha256": "3095e9671ddb47089f79a5928fbb087f4ff31974b9453832dea077eb166c06d6"
+    },
+    "runs/A2-with/INPUT/task.md": {
+      "original_path": "runs/A2-with/INPUT/task.md",
+      "sha256": "31ad1afdd97f076c0865f59c30783534bb8e8c8e3f2481f7a306479ab837e5d5"
+    },
+    "runs/A2-with/INPUT/materials/fusion-tax.pdf": {
+      "original_path": "runs/A2-with/INPUT/materials/fusion-tax.pdf",
+      "sha256": "9518ccdbac3a4e4d89a431f87837b6ea67b976319d68a342108abb62b47e5993"
+    },
+    "runs/A2-with/out/triage/map.md": {
+      "original_path": "runs/A2-with/out/triage/map.md",
+      "sha256": "b896270706018bc2d84553f0136b59df8f6102b699ef4937892ed26e4e6d7b98"
+    },
+    "runs/A2-with/out/triage/stats.json": {
+      "original_path": "runs/A2-with/out/triage/stats.json",
+      "sha256": "36fe498bd910d42066d974b52f51c88e7b72914fe07afd3be799b03ba2bf0db1"
+    },
+    "runs/A2-with/out/triage/index.json": {
+      "original_path": "runs/A2-with/out/triage/index.json",
+      "sha256": "08f0d89255ee8167e1875be8b14787c19af210913ed5cbf466f6e5c2940ba440"
+    },
+    "runs/A2-with/out/triage/tables/p07.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p07.txt",
+      "sha256": "8cd2a153cf0bf0918c54fb2a1d5eb0b9174ef71412e42b4ed73828357315cf43"
+    },
+    "runs/A2-with/out/triage/tables/p12.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p12.txt",
+      "sha256": "d58ab5f75b66d3fa11d1c59b07c68e58fb3dec5949c9fd0538eba3292525292f"
+    },
+    "runs/A2-with/out/triage/tables/p04.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p04.txt",
+      "sha256": "e707c545f7a27e94d8d1296232760834dfd6a420c09e1c4c3fe3181445d20bc4"
+    },
+    "runs/A2-with/out/triage/tables/p10.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p10.txt",
+      "sha256": "fbf984114fe541051e62ca6baea437a3e3df58d1e4b4f28a528510fa8ca5ebc9"
+    },
+    "runs/A2-with/out/triage/tables/p11.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p11.txt",
+      "sha256": "2c532d07013434b4aedd8fba424d467ba7421707305429c3882ed067c3062099"
+    },
+    "runs/A2-with/out/triage/tables/p05.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p05.txt",
+      "sha256": "0caa2d0320dd6a1696acec17ef2a83edab5535a075bbed616e1948d30af223b9"
+    },
+    "runs/A2-with/out/triage/tables/p14.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p14.txt",
+      "sha256": "e04afb2c3b44d4bf5dd86f5d2c31df70fd82be2c96772b0a7bb6db05bf0a01c3"
+    },
+    "runs/A2-with/out/triage/tables/p08.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p08.txt",
+      "sha256": "98da0247877866e418657ebf33381d1cdd52c2617b81a065bb1ac510fe43ad3b"
+    },
+    "runs/A2-with/out/triage/tables/p09.txt": {
+      "original_path": "runs/A2-with/out/triage/tables/p09.txt",
+      "sha256": "dfa0139ee6c0e67f90387c95cd2c230ff5df46f85c40b2000c39888ea62ffb4e"
+    },
+    "runs/A2-with/out/triage/pages/p13.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p13.txt",
+      "sha256": "8b77b1eccf90742101eedc70ba066e9c04b2cb741d22525cc4aebeaa88aaacc1"
+    },
+    "runs/A2-with/out/triage/pages/p07.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p07.txt",
+      "sha256": "b903d14ac4dc36e7e9ad2101d0b6c04cbab08208702c8e80014f3ae0399a0c55"
+    },
+    "runs/A2-with/out/triage/pages/p06.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p06.txt",
+      "sha256": "3a28be5d8fc6e08118b921781e97135c89eff8542d7cb900760c0f5144d8cc42"
+    },
+    "runs/A2-with/out/triage/pages/p12.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p12.txt",
+      "sha256": "26ebc9fbb6676b700c3605c4e8380929fea9da553887d6f28aecc8e581b09e18"
+    },
+    "runs/A2-with/out/triage/pages/p04.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p04.txt",
+      "sha256": "4bd4846deea3fc47f751c93f89fc807bc704c2697faccbb2c8fc2b073a1776da",
+      "raw_copy": "runs/A2-with/out/triage/pages/p04.txt.raw.bin",
+      "published_sha256": "871d101a0ca6d2eb851e7c84f2e2d655ce2923a34f578a091bd65fd5d0db1755",
+      "transport_transform": "NUL bytes displayed literally as \\u0000; original bytes retained in raw_copy"
+    },
+    "runs/A2-with/out/triage/pages/p10.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p10.txt",
+      "sha256": "a0843d5192243786042d4b4f77dde8166c2ab63cd48db8adc59cc8e41c7ab268"
+    },
+    "runs/A2-with/out/triage/pages/p11.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p11.txt",
+      "sha256": "b4179cbda626fed01040d7afedca9807c02e6cbb2095a9855a6e722f0607f5c5"
+    },
+    "runs/A2-with/out/triage/pages/p05.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p05.txt",
+      "sha256": "4b64f9d2a950c7def0eb35117dd3fc0ad9716033f909544a42eff80a55ea9b5b"
+    },
+    "runs/A2-with/out/triage/pages/p01.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p01.txt",
+      "sha256": "fd72913aacb78d6df543baa824475228487b573073c8eb001e6133ec3b0a46b6"
+    },
+    "runs/A2-with/out/triage/pages/p15.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p15.txt",
+      "sha256": "728347e0797534bb9b1649479803ace23ba8268365a65f93de1d1cb4e238c4a0"
+    },
+    "runs/A2-with/out/triage/pages/p14.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p14.txt",
+      "sha256": "3d91ab9a659fd800ae0c4a9c64086a0a2c93275a4f226a1c175427113363a77f"
+    },
+    "runs/A2-with/out/triage/pages/p16.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p16.txt",
+      "sha256": "f3d9e9d68e421c0400a9fa4bbff658094d312c96b2090b2fe9a85f307420778b"
+    },
+    "runs/A2-with/out/triage/pages/p02.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p02.txt",
+      "sha256": "b4e4f33d6d4b5cdb826d8e91cd1a062e842043c84b153eacdc476d5e3a1b7d76"
+    },
+    "runs/A2-with/out/triage/pages/p03.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p03.txt",
+      "sha256": "cb12862149211ac2b7fc43e36c27a7964453938b091154d32c5e842da6846182"
+    },
+    "runs/A2-with/out/triage/pages/p17.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p17.txt",
+      "sha256": "7d41eb2a5ed733ed33fc3a8f73ec2b21941a21533aea0d5924dad18c7b6001e5"
+    },
+    "runs/A2-with/out/triage/pages/p18.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p18.txt",
+      "sha256": "985753cebb10aeacc740ff52b643e370bfb37226cf8ee729a48bb6f754499e18"
+    },
+    "runs/A2-with/out/triage/pages/p08.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p08.txt",
+      "sha256": "303651b5699bb2f9aeab1e4306668e2296f96c1ed19827ed5ed3eb090c45ec42"
+    },
+    "runs/A2-with/out/triage/pages/p09.txt": {
+      "original_path": "runs/A2-with/out/triage/pages/p09.txt",
+      "sha256": "8b4d99eb9a6ae2d3d44f7e0f8134988ca86e44eee8cd40d5dcba772e2d72d577"
+    },
+    "runs/A2-with/skill/references/ledger.md": {
+      "original_path": "runs/A2-with/skill/references/ledger.md",
+      "sha256": "4f21a341bb4ffaef778e4d642de3f47077543350022c1a88a247e735b823b0f9"
+    },
+    "runs/A2-with/skill/scripts/check_ledger.py": {
+      "original_path": "runs/A2-with/skill/scripts/check_ledger.py",
+      "sha256": "394521d1176b1a153a2d16944dca60d909db1457afedad4dd609f0ebcd58ded0"
+    },
+    "runs/A2-with/skill/scripts/check_memo.py": {
+      "original_path": "runs/A2-with/skill/scripts/check_memo.py",
+      "sha256": "ecd06f88410e9a4a2ba39ec81ad126a9669c6dcaa19c8c95e63e35dc094cec9e"
+    },
+    "runs/A2-with/skill/scripts/table_stats.py": {
+      "original_path": "runs/A2-with/skill/scripts/table_stats.py",
+      "sha256": "7e6afb6bf9958dba52783cc1e35913f052167f3506aaabd9e1e310e316358116"
+    },
+    "runs/A2-with/skill/scripts/precision.py": {
+      "original_path": "runs/A2-with/skill/scripts/precision.py",
+      "sha256": "1e6cf2b07334512a7b6c39c97b0ff4d52c79cc2569eb2b5d2517e6edf1bf679d"
+    },
+    "runs/A2-with/skill/scripts/triage.py": {
+      "original_path": "runs/A2-with/skill/scripts/triage.py",
+      "sha256": "55bd3516c249b889afcb14f9b6ca8571ec0bad4c155ac7d424992e55ff1eee5d"
+    },
+    "runs/A2-with/skill/scripts/numeric.py": {
+      "original_path": "runs/A2-with/skill/scripts/numeric.py",
+      "sha256": "1d7da43b57542b0a90ab0de41d2858b9430ae2c64777013788e6bb9be84a9256"
+    }
+  }
+}

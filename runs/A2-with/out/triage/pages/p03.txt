@@ -1,0 +1,110 @@
+rank-versus-score question our per-query analysis speaks
+to. This survey is a time-sensitive account of documented
+defaults rather than a peer-reviewed comparison of effective-
+ness: it rests on documentation that changes from release
+to release (the OpenSearch and Weaviate changes above are
+two examples), and it records what practitioners are steered
+toward, not what has been shown to work; the peer-reviewed
+comparisons of rank and score fusion are reviewed next.
+C. SCORE CALIBRATION VERSUS RANK FUSION
+When is score fusion preferable to rank fusion? The
+metasearch literature answered this early: Lee [18] attributed
+fusion gains to the “unequal overlap” of relevant versus
+non-relevant documents across runs, Vogt and Cottrell [19]
+characterized when a linear combination of scores helps, and
+Renda and Straccia [38] found score-based aggregation supe-
+rior to rank-based aggregation whenever scores are available
+and can be normalized. The normalization step is the crux:
+simple min–max or z-score normalization [39] is sensitive to
+outliers and to the depth of the list, whereas score-distribution
+models [40], [41] calibrate scores on a relevance scale at
+the cost of fitting a model per run, and the interpolation
+weight itself can be set from component effectiveness [42].
+For sparse–dense hybrids, Ma et al. [43] and Chen et al. [44]
+used weighted score interpolation and reported consistent
+zero-shot gains, and Bruch et al. [45] showed that a con-
+vex combination of min–max normalized scores outperforms
+RRF and is sample-efficient to tune. The practical reading
+is that interpolation wins when the two score distributions
+can be put on a comparable scale and one component is
+reliably stronger, because it keeps the stronger component’s
+confidence; rank fusion is the safer choice when scores are
+incomparable or unavailable, or when the two components
+are similarly strong, so that neither should dominate. Our
+results reproduce both halves of this picture (Section V-B).
+D. QUERY PERFORMANCE PREDICTION
+Query Performance Prediction (QPP) estimates retrieval
+quality without relevance judgments [46]. Post-retrieval pre-
+dictors are computed from the score distribution of a single
+ranking: NQC [46] measures the standard deviation of top
+scores and WIG [47] the gain of the top results over the
+collection mean; both are free, since the retrieval scores are
+already in hand. Faggioli et al. [48] report that classical
+predictors degrade on neural rankers, which is one reason
+cheap routing over dense retrievers is hard. Recent work
+applies QPP to weight the components in fusion [49]. We
+ask instead whether the same signals predict fusion failure,
+and whether that prediction transfers across corpora.
+E. SELECTIVE RETRIEVAL AND PER-QUERY ROUTING
+Routing studies differ in what the per-query decision is.
+Some decide whether to retrieve at all [50]; some choose
+which retriever or pipeline to run, from sparse versus dense
+on efficiency grounds [7] to a mixture of expert embedding
+models [51] or a complexity-tiered pipeline [52], [53]; and a
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+growing group sets the fusion weight per query, from an LLM
+judge of each component’s likely effectiveness (DAT [9]) to
+query-specificity heuristics [33], zero-shot mixtures of sparse
+and dense retrievers [54], margin-based confidence [55], or a
+learned regressor from the query representation [56]. Mothe
+and Ullah [8] frame configuration selection as a risk-sensitive
+decision. All of these presume that per-query component
+effectiveness is reliably learnable. Our work is complemen-
+tary and diagnostic: rather than proposing another router, we
+characterize when fusion fails and test whether the cheap
+signals such routers rely on transfer across corpora, finding
+that they do not (Section V-G). This also suggests why DAT
+resorts to an LLM judge: the signal it needs is not available
+from cheap, transferable query features.
+F. RISK-SENSITIVE FUSION AND FUSION-QPP
+That fusion can harm individual queries while helping on
+average has roots in risk-sensitive evaluation [57], [58]. Ben-
+ham and Culpepper [4] gave a per-query risk–reward view
+of rank fusion, reporting that unsupervised fusion improves
+most topics but degrades a minority (e.g. 142 improved vs.
+21 worsened on Robust04). The fusion-QPP line [5], [6]
+predicts the absolute effectiveness of an already-fused list
+from reference lists; because it never compares fusion to a
+component, it cannot establish that fusion hurts, and because
+its estimators are fit per collection, it makes no cross-corpus
+claim. Table 1 positions our study against these lines. The
+fusion tax descends from the risk framing but differs in the
+reference: wins and losses in [4] are scored against a single
+weak BM25 run with a ±10% deadband, so a query can be a
+win there (fusion beats weak BM25) yet a loss for us (fusion
+below dense-only). We score loss against the better com-
+ponent per query and against the deployable always-dense
+system, in a modern sparse–dense setting, across an encoder
+scale ladder and a learned-sparse substitution, under held-out
+weight selection, and we test whether the loss is predictable
+across corpora and recoverable by reranking. Each prior line
+covers at most a few of these axes, and none measures the
+loss against the better component or against the deployable
+single retriever; two concurrent aggregate-level studies [59],
+[60] corroborate the phenomenon without measuring it per
+query.
+G. FIRST-STAGE FUSION, RERANKING, AND RAG
+Production systems rarely serve the first-stage list directly:
+a cross-encoder or LLM reranker re-sorts the top candi-
+dates [61]–[64], and RAG pipelines then pass a truncated
+context to a reader. Reranking does not make the first stage
+irrelevant. Rerankers are conditioned on the candidate dis-
+tribution they were trained on [65], [66], their effectiveness
+degrades as the candidate pool grows [67], and the right depth
+is itself query dependent [68]; an industrial study of RRF-
+based RAG-Fusion found its recall gains “largely neutral-
+ized” after reranking and truncation [69], and the TREC 2024
+RAG baselines use BM25 plus a reranker with no fusion
+at all [70]. On the reader side, answer quality depends on
+159622
+VOLUME 14, 2026

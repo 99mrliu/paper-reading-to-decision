@@ -1,0 +1,74 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+
+
+
+TABLE 1. Positioning against prior lines of work. “Loss reference” is the quantity a per-query loss is measured against; LOCO = leave-one-corpus-out.
+
+
+                             Bruch et al. [45]      Benham                   & Fusion-QPP [5], [6]      Routing [7]–[9]          Concurrent [59], [60]   This work
+                                                    Culpepper [4]
+
+Unit of analysis             aggregate              per-query                   per-query              per-query                 aggregate               per-query
+Loss reference               –                      fixed weak BM25 run         absolute fused effec- –                          best single system      max(BM25, dense) and
+                                                                                tiveness                                         (mean)                  always-dense
+Components                   sparse + dense         classical lexical runs      classical lexical runs sparse / dense / hybrid   sparse + dense          sparse + dense; SPLADE +
+                                                                                                                                                         dense
+Fusion functions             RRF, convex, learned   RRF, CombSUM, . . .         CombSUM/MNZ             convex (α)               RRF, convex             RRF, convex, CombMNZ
+Dense-encoder scale lad-     –                      –                           –                       –                        –                       ✓ 22M–596M, three genera-
+der                                                                                                                                                      tions
+Learned-sparse substitu-     ✓                      –                           –                       –                        –                       ✓ (per-component attribu-
+tion                                                                                                                                                     tion)
+Held-out fusion weight       ✓                      –                           –                       ✓                        partly                  ✓ (LOCO + CV)
+Predicts per-query failure   –                      –                           ✓ (absolute)            ✓                        –                       ✓
+Cross-corpus      transfer   –                      –                           –                       –                        –                       ✓ (negative result)
+tested
+Risk-sensitive               –                      ✓                           –                       ✓                        –                       ✓ (TRisk)
+significance
+Reranking recovery mea-      –                      –                           –                       –                        –                       ✓
+sured
+
+
+
+
+where relevant passages sit in the context [71], [72] and on                                   that fusion demoted relevant documents relative to the better
+the composition of the retrieved set [73]–[75], which is why                                   component, which may be the loss of the single relevant
+per-query retrieval utility for generation is evaluated in its                                 document or a reordering among several; we therefore speak
+own right [76]. We do not evaluate generation. We measure                                      of relevant documents rather than of a correct answer.
+the tax at the first stage, and we measure directly how                                           The reference in Eq. 1 is a per-query oracle: it presumes
+much of it a strong cross-encoder recovers (Section V-H),                                      knowledge of which retriever wins each query, and Sec-
+which measures the downstream exposure of rank-sensitive                                       tion V-G shows that neither fusion failure nor the dense-
+consumers at one reranking depth without claiming an effect                                    versus-fusion decision is predictable well enough from cheap
+on answers.                                                                                    features for a router to exploit. We therefore report two
+                                                                                               quantities. The oracle tax is the fraction of queries with
+III. PROBLEM FORMULATION AND TERMINOLOGY                                                       τ (q) > 0, an upper bound on per-query harm. The deploy-
+We fix the vocabulary used in the rest of the paper here; each                                 able tax replaces the oracle by the best static single retriever,
+term is defined once and used verbatim afterwards.                                             always-dense (the stronger component on every corpus with
+                                                                                               the primary encoder, BGE-small): it is the fraction of queries
+A. DIAGNOSTIC TAXONOMY                                                                         on which fusion scores below dense-only, i.e. the harm a
+For a query q, let NDCGs (q) and NDCGd (q) denote the                                          practitioner who simply chose dense retrieval would avoid.
+nDCG@10 of the sparse and dense retrievers. We classify q                                      Both are accompanied by the symmetric benefit statistics
+into one of four quadrants by whether each retriever places                                    (fraction of queries helped and mean gain when helped) and
+at least one relevant document in its top-10:                                                  by the net change, so that harm is never reported without the
+   • Both-Win: NDCGs (q) > 0 and NDCGd (q) > 0;                                                corresponding benefit. For a fusion method f and baseline b
+   • Dense-Only: NDCGd (q) > 0 and NDCGs (q) = 0;                                              the net mean change decomposes as
+   • Sparse-Only: NDCGs (q) > 0 and NDCGd (q) = 0;
+                                                                                                E[∆] = P (help) E[gain | help] − P (hurt) E[loss | hurt],
+   • Both-Fail: NDCGs (q) = 0 and NDCGd (q) = 0.
+                                                                                                                                                          (2)
+The criterion is deliberately coarse: it records which retriever                               which is also the reward and risk decomposition of
+covers a query, not how well. Magnitudes are carried by the                                    URisk [57]; the risk-sensitive tests in Section V-D weight the
+tax below.                                                                                     second term by (1+αrisk ).
+B. THE FUSION TAX
+                                                                                               IV. EXPERIMENTAL SETUP
+For a fused ranking with NDCGf (q), the fusion tax of query
+                                                                                               A. DATASETS
+q is
+                                                                                              We evaluate on seven BEIR benchmark datasets spanning
+  τ (q) = max NDCGs (q), NDCGd (q) − NDCGf (q).                                                scientific-claim, financial, medical, argumentative, scientific-
+                                                         (1)                                   citation, biomedical, and duplicate-question domains (Ta-
+Fusion hurts q when τ (q) > 0 and helps it when τ (q) < 0;                                     ble 2). Every analysis in this paper, including the encoder
+this sign convention (positive is harm) is used in every                                       scale ladder and the SPLADE substitution, uses all seven.
+table and figure. Because BEIR corpora carry multiple, often                                   For ArguAna, where every query is also a corpus document,
+graded, relevant documents per query, a positive tax means                                     we follow the BEIR protocol and remove the query’s own
+VOLUME 14, 2026                                                                                                                                                         159623
+

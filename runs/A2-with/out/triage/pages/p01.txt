@@ -1,0 +1,62 @@
+Date of publication October 15, 2026.
+Digital Object Identifier 10.1109/ACCESS.2026.3743502
+The Fusion Tax: A Diagnostic Analysis
+of When Hybrid Retrieval Hurts
+AADITYA CHAUHAN ORCID1 and ARUN AGARWAL ORCID2
+1Independent Researcher, Bothell, WA 98012 USA (e-mail: aadityc28@gmail.com)
+2Independent Researcher, Issaquah, WA 98027 USA (e-mail: arunagar28@gmail.com)
+Corresponding author: Aaditya Chauhan (e-mail: aadityc28@gmail.com).
+This work received no external funding. The authors declare no conflict of interest. This is the author-prepared version of the article
+published in IEEE Access, vol. 14, pp. 159620–159637, 2026, DOI: 10.1109/ACCESS.2026.3743502, under a Creative Commons
+Attribution 4.0 (CC BY 4.0) license.
+arXiv:2610.30612v1  [cs.IR]  22 Oct 2026
+ABSTRACT Hybrid retrieval, which fuses a sparse lexical retriever with a dense neural one, is widely
+recommended in the software documentation surveyed in September 2026, usually with reciprocal rank
+fusion (RRF), on the strength of aggregate gains. We ask what fusion costs on individual queries, treating
+“do not fuse” as a first-class outcome, in the setting in which hybrid retrieval is deployed: a standard Anserini
+BM25, five dense encoders spanning 22M–596M parameters and three model generations, a learned-sparse
+(SPLADE) alternative, and a cross-encoder second stage, on seven BEIR datasets and three fusion functions.
+Even the best method, dense-weighted score interpolation, ranks relevant documents below the better of its
+two components on 13–48% of queries and below the deployable dense-only retriever on 8–21% (14–
+48% and 11–25% at a weight selected under leave-one-corpus-out validation), while beating dense-only
+in aggregate on every corpus with the primary encoder; the downside is significant under loss-averse risk-
+sensitive evaluation on six of the seven corpora. We call this loss the fusion tax. It is mostly a ranking
+effect that preserves recall in aggregate, it is most likely on the queries that only one retriever covers, and
+it persists across the encoder ladder and the SPLADE substitution. RRF carries the higher tax wherever
+the dense retriever is clearly stronger and only beats dense-only where the two components are balanced.
+Fusion failure is weakly predictable within a corpus but transfers unreliably across corpora, because the
+features that predict it change sign with the sparse–dense balance. A cross-encoder recovers part of the tax
+only where it is itself reliable. We distill these findings into guidance that keys the fusion decision to the
+measured sparse–dense balance of the target corpus.
+INDEX TERMS Information retrieval, hybrid search, retrieval-augmented generation, fusion methods,
+BM25, dense retrieval, reranking, query performance prediction.
+I. INTRODUCTION
+Hybrid retrieval, which fuses a sparse lexical retriever such
+as BM25 [1] with a dense neural retriever [2], is, at the
+time of writing, the default recommendation of most cur-
+rent search stacks and retrieval-augmented generation (RAG)
+frameworks, and reciprocal rank fusion (RRF) [3] is the
+fusion method most of them recommend or ship as the only
+option (Section II-B). The recommendation rests on aggre-
+gate evidence: averaged over a query set, the fused ranking
+usually beats either component.
+That fusion can help on average while hurting individual
+queries is not a new observation. Risk-sensitive evaluation of
+rank fusion [4], fusion-oriented query performance predic-
+tion [5], [6], and per-query routing between retrievers [7]–
+[9] all start from it. What those lines do not provide is
+the quantity a practitioner deciding between a hybrid and a
+single strong retriever needs: how often, and by how much, a
+modern sparse–dense fusion ranks relevant documents below
+the better of its own two components, and below the single
+component one would deploy instead. We call this per-query
+loss the fusion tax, we treat “do not fuse” as a first-class
+outcome, and we measure the tax in the setting in which
+hybrid retrieval is actually deployed today: a standard BM25
+pipeline, dense encoders spanning 22M–596M parameters
+and three model generations, a learned-sparse alternative, and
+a cross-encoder second stage.
+Concretely, this paper contributes:
+1) A per-query accounting of fusion on seven BEIR cor-
+159620
+VOLUME 14, 2026

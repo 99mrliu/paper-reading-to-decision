@@ -1,0 +1,143 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+TABLE 6. Diagnostic quadrant distribution (% of queries, BGE-small, Anserini
+BM25).
+Dataset
+Both-Win
+Dense-Only
+Sparse-Only
+Both-Fail
+SciFact
+76.3%
+9.3%
+5.3%
+9.0%
+FiQA
+41.5%
+22.5%
+6.3%
+29.6%
+NFCorpus
+62.5%
+7.4%
+6.5%
+23.5%
+ArguAna
+65.3%
+20.1%
+5.0%
+9.6%
+SciDocs
+42.8%
+17.0%
+6.7%
+33.5%
+TREC-COVID
+100.0%
+0.0%
+0.0%
+0.0%
+Quora
+92.2%
+5.9%
+1.0%
+0.9%
+50 queries against dense-only). Both-Fail tracks corpus dif-
+ficulty (SciDocs 34%, FiQA 30%, NFCorpus 24%). Fusion
+failures (red in Fig. 1) concentrate off the diagonal, where
+one retriever succeeds and the other contributes noise.
+D. THE FUSION TAX: HARM AND BENEFIT
+Table 8 gives the symmetric accounting of Section III-B for
+interpolation and RRF against both references, and Fig. 2 the
+distribution of τ.
+Oracle tax. Against the per-query oracle, the best method
+(interpolation, α = 0.7) hurts 12.8% of queries on the easy,
+dense-dominated Quora set, 20–39% on five corpora, and
+48% on the 50-query TREC-COVID set; RRF hurts 20–
+40% and CombMNZ 17–40% (per-method rates and mean
+losses in Supplementary Table S9). These are not near-ties:
+requiring a material loss of τ > 0.05 nDCG@10 still leaves
+10–34% of queries (interpolation) and τ > 0.10 leaves 8–
+22% (Supplementary Table S9), and the mean loss on a
+hurt query is 0.09–0.25 nDCG@10. Bootstrap confidence
+intervals (Supplementary Table S2) sit well above zero on
+every corpus. Fusion beats both of its components on only
+4–40% of queries, so the net change against the oracle is
+negative everywhere (−0.018 to −0.049): a perfect per-query
+router would gain 0.02–0.05 nDCG@10 over static fusion on
+every corpus, which is the prize that motivates routing and
+that Section V-G shows is hard to collect.
+Deployable tax and benefit. Against always-dense, the
+reference a practitioner can actually deploy, interpolation
+hurts 8–21% of queries and helps 12–72%. The mean gain
+on a helped query equals or exceeds the mean loss on a
+hurt query on every corpus, by under 5% on SciFact and
+ArguAna (0.213 vs. 0.205, 0.221 vs. 0.213) and by 1.2–1.8×
+on the others (e.g. FiQA 0.166 vs. 0.100, NFCorpus 0.077
+vs. 0.044), so fusion’s aggregate edge, positive on all seven
+corpora (+0.008 to +0.051), comes from helping somewhat
+more queries, and somewhat more per query, than it hurts.
+The losses are nevertheless of the same order as the gains,
+0.04–0.21 nDCG@10 on a hurt query, not small change. For
+RRF the balance tips: it hurts 15–33% of queries and its
+net change against dense-only is negative on five corpora
+(−0.002 to −0.039), positive only on the two balanced
+corpora (NFCorpus +0.020, TREC-COVID +0.135).
+By quadrant. Table 7 decomposes the interpolation tax
+by quadrant. In Sparse-Only, dense-heavy fusion hurts 87–
+95% of queries with a net loss of 0.14–0.37 nDCG@10: the
+dense side contributes only noise there and a weight of 0.7
+buries BM25’s relevant documents. In Dense-Only it hurts
+38–65% (net −0.03 to −0.11), the mirror image with BM25
+as the noise source. In Both-Win the two directions nearly
+cancel (net −0.04 to +0.01) while 10–48% of queries are
+still reordered for the worse, and in Both-Fail fusion can only
+help, which it does on 0–9% of queries. The harm rate is thus
+highest exactly where Fig. 1 places it: off the diagonal, on
+the at most 29% of queries that only one retriever covers, and
+the dense-heavy weight that wins in aggregate does so by
+sacrificing the Sparse-Only minority. Rate and count differ,
+however: because Both-Win is by far the largest quadrant, it
+holds 38–72% of the hurt queries and 26–63% of the total
+loss (all of both on TREC-COVID, whose 50 queries are
+all Both-Win), so fixing only the off-diagonal queries would
+leave most of the tax in place (Supplementary Table S14).
+Mostly ranking, not coverage. Fusion’s recall@10 equals
+or exceeds dense-only’s in aggregate on all seven corpora
+(Supplementary Table S5), and recall is reduced on only 1–
+7% of all queries. The hurt queries themselves are less clean:
+among the queries interpolation hurts relative to dense-only,
+10–43% also lose at least one relevant document from the
+top-10, those queries carry 15–59% of the total nDCG@10
+downside (15–35% on four corpora, 48–59% on NFCorpus,
+SciDocs, and TREC-COVID), and 77 queries across the
+seven corpora lose every relevant document from the top-10
+(Supplementary Table S5). For most hurt queries the relevant
+documents remain in the top-10 and fusion reorders them, so
+the harm falls mainly on consumers sensitive to rank order,
+but a minority of it is a coverage loss that no downstream
+reordering can repair; Section V-H measures how much of
+the rest a second stage removes.
+Risk-sensitive significance. When the deployable com-
+parison is placed on the standard risk-sensitive footing [57],
+[58], TRisk (Supplementary Table S3) flags interpolation as
+significantly risky relative to always-dense at risk aversion
+αrisk = 5 on six of the seven corpora (all but TREC-COVID)
+even though it beats dense-only on the mean, and already at
+αrisk = 1 on ArguAna; RRF is significantly risky on five
+corpora at αrisk = 1 and six at αrisk = 5. TREC-COVID,
+where both components are strong, is the one corpus on
+which both fusions are risk-robust.
+E. ROBUSTNESS ACROSS THE ENCODER SCALE
+LADDER
+A natural objection is that the tax reflects weak dense en-
+coders. We scale the dense encoder by an order of mag-
+nitude within one family (BGE-small 33M, base 110M,
+large 335M), add MiniLM (22M) as a cross-family check
+and Qwen3-Embedding (596M, released 2025) as a newer-
+generation check, and recompute the tax on all seven corpora
+(Table 9, Fig. 3).
+The tax does not vanish. For interpolation it is flat within
+the BGE family, drifting down on SciFact and ArguAna and
+up on FiQA and NFCorpus by at most four points (small,
+VOLUME 14, 2026
+159627

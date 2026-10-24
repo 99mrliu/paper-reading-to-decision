@@ -1,0 +1,163 @@
+{
+  "rows": [
+    {
+      "label": "SciFact",
+      "values": {
+        "Hurt": "10.0",
+        "Loss": "0.205",
+        "Help": "14.7",
+        "Gain": "0.213",
+        "Net": "0.0107",
+        "OracleHurt": "20.0",
+        "OracleLoss": "0.250",
+        "OracleHelp": "3.7",
+        "OracleGain": "0.128",
+        "OracleNet": "-0.0453"
+      },
+      "raw": "                                             SciFact                 10.0     0.205                 14.7      0.213    +0.0107        20.0        0.250      3.7                 0.128       -0.0453"
+    },
+    {
+      "label": "FiQA",
+      "values": {
+        "Hurt": "14.7",
+        "Loss": "0.100",
+        "Help": "23.1",
+        "Gain": "0.166",
+        "Net": "0.0239",
+        "OracleHurt": "23.3",
+        "OracleLoss": "0.157",
+        "OracleHelp": "16.5",
+        "OracleGain": "0.111",
+        "OracleNet": "-0.0181"
+      },
+      "raw": "                                             FiQA                    14.7     0.100                 23.1      0.166    +0.0239        23.3        0.157     16.5                 0.111       -0.0181"
+    },
+    {
+      "label": "NFCorpus",
+      "values": {
+        "Hurt": "18.3",
+        "Loss": "0.044",
+        "Help": "33.4",
+        "Gain": "0.077",
+        "Net": "0.0177",
+        "OracleHurt": "39.0",
+        "OracleLoss": "0.103",
+        "OracleHelp": "16.4",
+        "OracleGain": "0.042",
+        "OracleNet": "-0.0332"
+      },
+      "raw": "                                             NFCorpus                18.3     0.044                 33.4      0.077    +0.0177        39.0        0.103     16.4                 0.042       -0.0332"
+    },
+    {
+      "label": "ArguAna",
+      "values": {
+        "Hurt": "19.1",
+        "Loss": "0.213",
+        "Help": "21.8",
+        "Gain": "0.221",
+        "Net": "0.0077",
+        "OracleHurt": "30.4",
+        "OracleLoss": "0.221",
+        "OracleHelp": "10.3",
+        "OracleGain": "0.172",
+        "OracleNet": "-0.0492"
+      },
+      "raw": "                                             ArguAna                 19.1     0.213                 21.8      0.221    +0.0077        30.4        0.221     10.3                 0.172       -0.0492"
+    },
+    {
+      "label": "SciDocs",
+      "values": {
+        "Hurt": "20.9",
+        "Loss": "0.070",
+        "Help": "26.1",
+        "Gain": "0.093",
+        "Net": "0.0097",
+        "OracleHurt": "36.2",
+        "OracleLoss": "0.090",
+        "OracleHelp": "14.0",
+        "OracleGain": "0.060",
+        "OracleNet": "-0.0243"
+      },
+      "raw": "                                             SciDocs                 20.9     0.070                 26.1      0.093    +0.0097        36.2        0.090     14.0                 0.060       -0.0243"
+    },
+    {
+      "label": "TREC-COVID",
+      "values": {
+        "Hurt": "14.0",
+        "Loss": "0.054",
+        "Help": "72.0",
+        "Gain": "0.081",
+        "Net": "0.0506",
+        "OracleHurt": "48.0",
+        "OracleLoss": "0.140",
+        "OracleHelp": "40.0",
+        "OracleGain": "0.066",
+        "OracleNet": "-0.0407"
+      },
+      "raw": "                                             TREC-COVID              14.0     0.054                 72.0      0.081    +0.0506        48.0        0.140     40.0                 0.066       -0.0407"
+    },
+    {
+      "label": "Quora",
+      "values": {
+        "Hurt": "8.2",
+        "Loss": "0.167",
+        "Help": "12.4",
+        "Gain": "0.205",
+        "Net": "0.0119",
+        "OracleHurt": "12.8",
+        "OracleLoss": "0.206",
+        "OracleHelp": "5.5",
+        "OracleGain": "0.131",
+        "OracleNet": "-0.0192"
+      },
+      "raw": "                                             Quora                    8.2     0.167                 12.4      0.205    +0.0119        12.8        0.206      5.5                 0.131       -0.0192"
+    }
+  ],
+  "ranges": {
+    "Hurt": {
+      "min": "8.2",
+      "max": "20.9"
+    },
+    "Loss": {
+      "min": "0.044",
+      "max": "0.213"
+    },
+    "Help": {
+      "min": "12.4",
+      "max": "72.0"
+    },
+    "Gain": {
+      "min": "0.077",
+      "max": "0.221"
+    },
+    "Net": {
+      "min": "0.0077",
+      "max": "0.0506"
+    },
+    "OracleHurt": {
+      "min": "12.8",
+      "max": "48.0"
+    },
+    "OracleLoss": {
+      "min": "0.090",
+      "max": "0.250"
+    },
+    "OracleHelp": {
+      "min": "3.7",
+      "max": "40.0"
+    },
+    "OracleGain": {
+      "min": "0.042",
+      "max": "0.172"
+    },
+    "OracleNet": {
+      "min": "-0.0492",
+      "max": "-0.0181"
+    }
+  },
+  "table": 8,
+  "n_rows": 7,
+  "warning": "Column order/meaning supplied by reader; verify original header. No semantic certification.",
+  "source_sha256": "38e1883d46c2d9d40ace6ed3e0e038c4f981efe06dfaf76cf737ede633192dd5",
+  "status": "ok"
+}

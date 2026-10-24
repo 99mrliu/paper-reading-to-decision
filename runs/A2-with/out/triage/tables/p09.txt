@@ -1,0 +1,86 @@
+                                                                                                           Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+
+
+
+                                             RRF                                                                       Interp(0.7)                                                                     CombMNZ
+                 4                                                                            4                                                                              4
+            10                                                                           10                                                                             10
+
+
+                 3                                                                            3                                                                              3
+            10                                                                           10                                                                             10
+
+
+
+# Queries                                                                    # Queries                                                                      # Queries
+                 2                                                                            2                                                                              2
+            10                                                                           10                                                                             10
+
+
+                 1                                                                            1                                                                              1
+            10                                                                           10                                                                             10
+
+
+                 0                                                                            0                                                                              0
+            10                                                                           10                                                                             10
+                        −0.50 −0.25   0.00    0.25     0.50   0.75    1.00                          −0.50 −0.25    0.00     0.25     0.50    0.75    1.00                           −0.50 −0.25      0.00    0.25   0.50   0.75   1.00
+                     Fusion tax τ (NDCG@10 loss; τ > 0 = fusion hurt)                             Fusion tax τ (NDCG@10 loss; τ > 0 = fusion hurt)                               Fusion tax τ (NDCG@10 loss; τ > 0 = fusion hurt)
+
+
+FIGURE 2. Distribution of the per-query fusion tax τ (Eq. 1) pooled over the seven datasets (BGE-small). Positive values are queries that fusion hurt; the long right
+tail (log-scale counts) shows that when fusion hurts, the loss can exceed 0.5 nDCG@10.
+
+
+TABLE 7. The interpolation tax by diagnostic quadrant (BGE-small, vs. the per-query oracle). Sh.: quadrant share of queries (%); Hurt/Help: % of the quadrant’s
+queries hurt/helped; Net: mean ∆nDCG@10 within the quadrant.
+
+
+                                                               Both-Win                                     Dense-Only                       Sparse-Only                                  Both-Fail
+                                 Dataset               Sh. Hurt Help                 Net            Sh. Hurt Help          Net       Sh. Hurt Help              Net              Sh. Hurt Help              Net
+                                 SciFact     76               12        4     -0.024 9                      61     7      -0.107      5      94      0      -0.319                 9     0       0     +0.000
+                                 FiQA        42               22       28     +0.008 23                     38    16      -0.029      6      90      5      -0.271                30     0       4     +0.008
+                                 NFCorpus    63               45       25     -0.026 7                      62     8      -0.035      7      95      5      -0.220                24     0       0     +0.000
+                                 ArguAna     65               23       10     -0.031 20                     56    12      -0.096      5      87      7      -0.243                10     0       9     +0.027
+                                 SciDocs     43               44       24     -0.020 17                     65    16      -0.041      7      94      2      -0.142                34     0       2     +0.003
+                                 TREC-COVID 100               48       40     -0.041 0                       –     –         –        0       –      –         –                   0     –       –       –
+                                 Quora       92               10        5     -0.011 6                      47     7      -0.092      1      88      4      -0.371                 1     0       4     +0.015
+
+
+TABLE 8. Symmetric harm/benefit accounting of fusion (BGE-small). Hurt/Help: percentage of queries with lower/higher nDCG@10 than the reference; Loss/Gain:
+mean absolute change on those queries; Net ∆: mean change over all queries (Eq. 2).
+
+
+                                                                        vs. always-dense (deployable)                                vs. per-query oracle max(BM25, dense)
+                                             Dataset               Hurt % Loss Help % Gain                              Net ∆        Hurt % Loss Help % Gain                                 Net ∆
+                                             Interp(0.7)
+                                             SciFact                 10.0     0.205                 14.7      0.213    +0.0107        20.0        0.250      3.7                 0.128       -0.0453
+                                             FiQA                    14.7     0.100                 23.1      0.166    +0.0239        23.3        0.157     16.5                 0.111       -0.0181
+                                             NFCorpus                18.3     0.044                 33.4      0.077    +0.0177        39.0        0.103     16.4                 0.042       -0.0332
+                                             ArguAna                 19.1     0.213                 21.8      0.221    +0.0077        30.4        0.221     10.3                 0.172       -0.0492
+                                             SciDocs                 20.9     0.070                 26.1      0.093    +0.0097        36.2        0.090     14.0                 0.060       -0.0243
+                                             TREC-COVID              14.0     0.054                 72.0      0.081    +0.0506        48.0        0.140     40.0                 0.066       -0.0407
+                                             Quora                    8.2     0.167                 12.4      0.205    +0.0119        12.8        0.206      5.5                 0.131       -0.0192
+                                             RRF
+                                             SciFact                 15.3     0.357                 18.0      0.278    -0.0048        23.3        0.311      6.3                 0.187    -0.0608
+                                             FiQA                    30.4     0.269                 26.9      0.237    -0.0181        35.8        0.262     20.5                 0.165    -0.0601
+                                             NFCorpus                23.8     0.110                 37.8      0.122    +0.0199        39.0        0.106     16.7                 0.063    -0.0309
+                                             ArguAna                 32.9     0.316                 23.7      0.269    -0.0401        40.1        0.299     11.7                 0.198    -0.0970
+                                             SciDocs                 27.6     0.139                 30.1      0.121    -0.0018        38.1        0.133     18.8                 0.078    -0.0358
+                                             TREC-COVID              26.0     0.096                 70.0      0.228    +0.1350        36.0        0.087     54.0                 0.139    +0.0437
+                                             Quora                   16.2     0.293                 12.5      0.234    -0.0184        19.9        0.288      5.4                 0.142    -0.0494
+
+
+
+base, large: SciFact 20.0, 18.0, 16.7%; FiQA 23.3, 24.4,                                                                    40% of queries on six corpora (60% on TREC-COVID) and
+25.0%; NFCorpus 39.0, 40.9, 40.2%; ArguAna 30.4, 28.3,                                                                      RRF 22–41%, while fusion continues to beat dense-only in
+29.0%), and for RRF it is flat to rising (FiQA 35.8, 36.6,                                                                  aggregate on every corpus. One protocol caveat concerns
+40.7%), even though the larger encoders deliver substantially                                                               Quora: encoded prefix-free, BGE-base and BGE-large score
+higher absolute nDCG@10. The other three corpora show the                                                                   0.83 there against 0.89 for BGE-small. Re-encoding only the
+same pattern: for interpolation, SciDocs 36.2, 35.9, 38.2%,                                                                 queries with the BGE instruction restores 0.887–0.890 and
+Quora 12.8, 18.1, 17.8%, and the 50-query TREC-COVID                                                                        brings their Quora tax to 13%, the same as BGE-small’s;
+set 48, 44, 60%, with RRF at 38–39% on SciDocs, 30–                                                                         the instruction also raises the TREC-COVID dense scores
+38% on TREC-COVID, and 20–23% on Quora. At BGE-                                                                             of all three BGE models by 0.09–0.11 and moves the tax
+large, the strongest BGE rung, interpolation still hurts 17–                                                                by at most three points on the other five corpora (Supple-
+
+159628                                                                                                                                                                                                               VOLUME 14, 2026
+

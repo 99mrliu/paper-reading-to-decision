@@ -1,0 +1,123 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+weight may carry a signal that transfers better; the natural
+next step, left to future work, is to score each component’s
+top-ranked documents with an LLM judge as DAT does, add
+the two scores to the feature set of Section IV-E, and test
+transfer under the same leave-one-corpus-out protocol while
+reporting the judge’s per-query cost. (6) Two BEIR artifacts
+apply identically to all methods and slightly depress absolute
+scores: five ArguAna queries whose sole relevant document
+is absent from the corpus, and exact-duplicate documents
+under different identifiers.
+VII. CONCLUSION
+We have given a per-query accounting of hybrid retrieval
+that treats “do not fuse” as a first-class outcome. With a
+standard Anserini BM25, dense encoders from 22M to 596M
+parameters, and a learned-sparse alternative, the best fusion
+method beats the deployable dense-only retriever in aggre-
+gate on every corpus with the primary encoder and on 33 of
+the 35 encoder–corpus pairs, yet demotes relevant documents
+below the better component on 13–48% of queries and below
+dense-only on 8–21%, with losses on a hurt query of the same
+order as the gains on a helped one and significant downside
+risk under loss-averse evaluation on six of the seven corpora.
+The tax is mostly a ranking effect (recall@10 is preserved
+in aggregate, although a minority of the hurt queries lose
+a relevant document from the top-10), it is most likely on
+the queries that only one retriever covers (though on corpora
+where both retrievers usually succeed, most hurt queries are
+ones both cover), and it persists across the encoder ladder
+and the SPLADE substitution; the weight that maximizes
+aggregate nDCG@10 transfers across corpora under held-out
+selection, while cheap per-query routing does not, because
+the features that predict failure change meaning with the
+sparse–dense balance. A cross-encoder second stage removes
+part of the tax only where it is itself reliable, overwrites it
+where it is not, and leaves interpolated and dense candidate
+sets within 0.011 nDCG@10 of each other once reranked
+with the one reranker and depth tested, except where sparse
+and dense are balanced. The practical guidance follows the
+mechanism: measure the sparse–dense balance on the target
+corpus, choose dense-weighted interpolation where dense
+leads and rank fusion where the two are even, keep dense-
+only on the table for rank-sensitive consumers, and re-check
+the decision when the corpus or the encoder changes.
+ACKNOWLEDGMENT
+In accordance with IEEE’s policy on the disclosure of ar-
+tificial intelligence (AI) use, the authors state that the AI
+assistant Claude (Anthropic) was used to check and refine
+the language of the author-written manuscript text. The re-
+search questions, methodology, experimental data, analyses,
+and conclusions are the authors’ own, and all content was
+reviewed and verified by the authors, who take full responsi-
+bility for the accuracy and integrity of the article.
+DATA AVAILABILITY
+All seven evaluation datasets are publicly available BEIR
+benchmarks [13], and the BM25 runs use the official pre-
+built Anserini indexes [14]. The complete pipeline (retrieval,
+fusion, evaluation, diagnostics, held-out weight selection,
+reranking, efficiency measurement, and every analysis and
+table script), the summary result files from which all tables
+and figures derive, and a step-by-step reproducibility guide
+(REPRODUCE.md) that traces each reported number to its
+source data are provided as supplementary material accom-
+panying this article and, together with the per-query retrieval
+runs of every retriever on every corpus, are archived on Zen-
+odo (https://doi.org/10.5281/zenodo.22298900; the version
+reviewed here is https://doi.org/10.5281/zenodo.22298901).
+REFERENCES
+[1] S. Robertson and H. Zaragoza, “The probabilistic relevance framework:
+BM25 and beyond,” Foundations and Trends in Information Retrieval,
+vol. 3, no. 4, pp. 333–389, 2009.
+[2] V. Karpukhin, B. O˘guz, S. Min, P. Lewis, L. Wu, S. Edunov, D. Chen, and
+W.-t. Yih, “Dense passage retrieval for open-domain question answering,”
+in Proceedings of the 2020 Conference on Empirical Methods in Natural
+Language Processing (EMNLP), pp. 6769–6781, 2020.
+[3] G. V. Cormack, C. L. A. Clarke, and S. Buettcher, “Reciprocal rank
+fusion outperforms Condorcet and individual rank learning methods,”
+in Proceedings of the 32nd International ACM SIGIR Conference on
+Research and Development in Information Retrieval, pp. 758–759, 2009.
+[4] R. Benham and J. S. Culpepper, “Risk-reward trade-offs in rank fusion,” in
+Proceedings of the 22nd Australasian Document Computing Symposium
+(ADCS), 2017.
+[5] G. Markovits, A. Shtok, O. Kurland, and D. Carmel, “Predicting query
+performance for fusion-based retrieval,” in Proceedings of the 21st ACM
+International Conference on Information and Knowledge Management
+(CIKM), pp. 813–822, 2012.
+[6] H. Roitman, “Enhanced performance prediction of fusion-based retrieval,”
+in Proceedings of the 2018 ACM SIGIR International Conference on
+Theory of Information Retrieval (ICTIR), pp. 195–198, 2018.
+[7] N. Arabzadeh, X. Yan, and C. L. A. Clarke, “Predicting effi-
+ciency/effectiveness trade-offs for dense vs. sparse retrieval strategy se-
+lection,” in Proceedings of the 30th ACM International Conference on
+Information & Knowledge Management (CIKM), pp. 2862–2866, 2021.
+[8] J. Mothe and M. Z. Ullah, “Selective query processing: A risk-sensitive
+selection of search configurations,” ACM Transactions on Information
+Systems, vol. 42, no. 1, pp. 15:1–15:35, 2024.
+[9] H.-L. Hsu and J. Tzeng, “DAT: Dynamic alpha tuning for hybrid retrieval
+in retrieval-augmented generation,” arXiv preprint arXiv:2503.23013,
+2025.
+[10] O. Khattab and M. Zaharia, “ColBERT: Efficient and effective passage
+search via contextualized late interaction over BERT,” in Proceedings of
+the 43rd International ACM SIGIR Conference on Research and Develop-
+ment in Information Retrieval, pp. 39–48, 2020.
+[11] P. Yang, H. Fang, and J. Lin, “Anserini: Reproducible ranking baselines
+using Lucene,” ACM Journal of Data and Information Quality, vol. 10,
+no. 4, pp. 16:1–16:20, 2018.
+[12] J. Lin, X. Ma, S.-C. Lin, J.-H. Yang, R. Pradeep, and R. Nogueira,
+“Pyserini: A Python toolkit for reproducible information retrieval research
+with sparse and dense representations,” in Proceedings of the 44th In-
+ternational ACM SIGIR Conference on Research and Development in
+Information Retrieval, pp. 2356–2362, 2021.
+[13] N. Thakur, N. Reimers, A. Rücklé, A. Srivastava, and I. Gurevych, “BEIR:
+A heterogeneous benchmark for zero-shot evaluation of information re-
+trieval models,” in Proceedings of the 35th Conference on Neural Infor-
+mation Processing Systems (NeurIPS), Datasets and Benchmarks Track,
+2021.
+[14] E. Kamalloo, N. Thakur, C. Lassance, X. Ma, J.-H. Yang, and J. Lin, “Re-
+sources for brewing BEIR: Reproducible reference models and statistical
+analyses,” in Proceedings of the 47th International ACM SIGIR Confer-
+ence on Research and Development in Information Retrieval, pp. 1431–
+1440, 2024.
+VOLUME 14, 2026
+159635

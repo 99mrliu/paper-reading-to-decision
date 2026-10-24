@@ -1,0 +1,70 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+
+
+
+TABLE 6. Diagnostic quadrant distribution (% of queries, BGE-small, Anserini    95% of queries with a net loss of 0.14–0.37 nDCG@10: the
+BM25).
+                                                                                dense side contributes only noise there and a weight of 0.7
+                                                                                buries BM25’s relevant documents. In Dense-Only it hurts
+  Dataset           Both-Win    Dense-Only     Sparse-Only    Both-Fail
+                                                                                38–65% (net −0.03 to −0.11), the mirror image with BM25
+  SciFact             76.3%         9.3%           5.3%          9.0%           as the noise source. In Both-Win the two directions nearly
+  FiQA                41.5%        22.5%           6.3%         29.6%
+  NFCorpus            62.5%         7.4%           6.5%         23.5%           cancel (net −0.04 to +0.01) while 10–48% of queries are
+  ArguAna             65.3%        20.1%           5.0%          9.6%           still reordered for the worse, and in Both-Fail fusion can only
+  SciDocs             42.8%        17.0%           6.7%         33.5%           help, which it does on 0–9% of queries. The harm rate is thus
+  TREC-COVID         100.0%         0.0%           0.0%          0.0%
+  Quora               92.2%         5.9%           1.0%          0.9%           highest exactly where Fig. 1 places it: off the diagonal, on
+                                                                                the at most 29% of queries that only one retriever covers, and
+                                                                                the dense-heavy weight that wins in aggregate does so by
+                                                                                sacrificing the Sparse-Only minority. Rate and count differ,
+50 queries against dense-only). Both-Fail tracks corpus dif-
+                                                                                however: because Both-Win is by far the largest quadrant, it
+ficulty (SciDocs 34%, FiQA 30%, NFCorpus 24%). Fusion
+                                                                                holds 38–72% of the hurt queries and 26–63% of the total
+failures (red in Fig. 1) concentrate off the diagonal, where
+                                                                                loss (all of both on TREC-COVID, whose 50 queries are
+one retriever succeeds and the other contributes noise.
+                                                                                all Both-Win), so fixing only the off-diagonal queries would
+                                                                                leave most of the tax in place (Supplementary Table S14).
+D. THE FUSION TAX: HARM AND BENEFIT                                                Mostly ranking, not coverage. Fusion’s recall@10 equals
+Table 8 gives the symmetric accounting of Section III-B for                     or exceeds dense-only’s in aggregate on all seven corpora
+interpolation and RRF against both references, and Fig. 2 the                   (Supplementary Table S5), and recall is reduced on only 1–
+distribution of τ .                                                             7% of all queries. The hurt queries themselves are less clean:
+   Oracle tax. Against the per-query oracle, the best method                    among the queries interpolation hurts relative to dense-only,
+(interpolation, α = 0.7) hurts 12.8% of queries on the easy,                    10–43% also lose at least one relevant document from the
+dense-dominated Quora set, 20–39% on five corpora, and                          top-10, those queries carry 15–59% of the total nDCG@10
+48% on the 50-query TREC-COVID set; RRF hurts 20–                               downside (15–35% on four corpora, 48–59% on NFCorpus,
+40% and CombMNZ 17–40% (per-method rates and mean                               SciDocs, and TREC-COVID), and 77 queries across the
+losses in Supplementary Table S9). These are not near-ties:                     seven corpora lose every relevant document from the top-10
+requiring a material loss of τ > 0.05 nDCG@10 still leaves                      (Supplementary Table S5). For most hurt queries the relevant
+10–34% of queries (interpolation) and τ > 0.10 leaves 8–                        documents remain in the top-10 and fusion reorders them, so
+22% (Supplementary Table S9), and the mean loss on a                            the harm falls mainly on consumers sensitive to rank order,
+hurt query is 0.09–0.25 nDCG@10. Bootstrap confidence                           but a minority of it is a coverage loss that no downstream
+intervals (Supplementary Table S2) sit well above zero on                       reordering can repair; Section V-H measures how much of
+every corpus. Fusion beats both of its components on only                       the rest a second stage removes.
+4–40% of queries, so the net change against the oracle is                          Risk-sensitive significance. When the deployable com-
+negative everywhere (−0.018 to −0.049): a perfect per-query                     parison is placed on the standard risk-sensitive footing [57],
+router would gain 0.02–0.05 nDCG@10 over static fusion on                       [58], TRisk (Supplementary Table S3) flags interpolation as
+every corpus, which is the prize that motivates routing and                     significantly risky relative to always-dense at risk aversion
+that Section V-G shows is hard to collect.                                      αrisk = 5 on six of the seven corpora (all but TREC-COVID)
+   Deployable tax and benefit. Against always-dense, the                        even though it beats dense-only on the mean, and already at
+reference a practitioner can actually deploy, interpolation                     αrisk = 1 on ArguAna; RRF is significantly risky on five
+hurts 8–21% of queries and helps 12–72%. The mean gain                          corpora at αrisk = 1 and six at αrisk = 5. TREC-COVID,
+on a helped query equals or exceeds the mean loss on a                          where both components are strong, is the one corpus on
+hurt query on every corpus, by under 5% on SciFact and                          which both fusions are risk-robust.
+ArguAna (0.213 vs. 0.205, 0.221 vs. 0.213) and by 1.2–1.8×
+on the others (e.g. FiQA 0.166 vs. 0.100, NFCorpus 0.077                        E. ROBUSTNESS ACROSS THE ENCODER SCALE
+vs. 0.044), so fusion’s aggregate edge, positive on all seven                   LADDER
+corpora (+0.008 to +0.051), comes from helping somewhat                         A natural objection is that the tax reflects weak dense en-
+more queries, and somewhat more per query, than it hurts.                       coders. We scale the dense encoder by an order of mag-
+The losses are nevertheless of the same order as the gains,                     nitude within one family (BGE-small 33M, base 110M,
+0.04–0.21 nDCG@10 on a hurt query, not small change. For                        large 335M), add MiniLM (22M) as a cross-family check
+RRF the balance tips: it hurts 15–33% of queries and its                        and Qwen3-Embedding (596M, released 2025) as a newer-
+net change against dense-only is negative on five corpora                       generation check, and recompute the tax on all seven corpora
+(−0.002 to −0.039), positive only on the two balanced                           (Table 9, Fig. 3).
+corpora (NFCorpus +0.020, TREC-COVID +0.135).                                      The tax does not vanish. For interpolation it is flat within
+   By quadrant. Table 7 decomposes the interpolation tax                        the BGE family, drifting down on SciFact and ArguAna and
+by quadrant. In Sparse-Only, dense-heavy fusion hurts 87–                       up on FiQA and NFCorpus by at most four points (small,
+VOLUME 14, 2026                                                                                                                         159627
+
