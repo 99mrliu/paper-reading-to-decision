@@ -1,0 +1,134 @@
+TABLE 2. Dataset statistics (BEIR test splits).
+Dataset
+Domain
+# Docs
+# Queries
+SciFact
+Scientific claims
+5,183
+300
+FiQA
+Financial QA
+57,638
+648
+NFCorpus
+Medical/nutrition
+3,633
+323
+TREC-COVID
+Biomedical
+171,332
+50
+ArguAna
+Argument retrieval
+8,674
+1,406
+SciDocs
+Scientific citations
+25,657
+1,000
+Quora
+Duplicate questions
+522,931
+10,000
+document from every retriever’s ranking before fusion and
+evaluation.
+B. RETRIEVAL METHODS
+Sparse. BM25 is the Anserini implementation [11] run
+through Pyserini [12] (version 1.6, Java 21) over the offi-
+cial prebuilt BEIR Lucene indexes [14], in the multifield
+configuration (title and body indexed as separate fields)
+with Anserini’s default parameters k1 = 0.9, b = 0.4.
+Section V-A shows that these runs reproduce the pub-
+lished Anserini nDCG@10 on all seven corpora to four
+decimals. The single-field (“flat”) Anserini index and the
+Python rank_bm25 implementation [77] serve only as an
+implementation-sensitivity check (Supplementary Table S1).
+Dense. We use five embedding models spanning 22M–
+596M parameters and three model generations (2021,
+2023, 2025): all-MiniLM-L6-v2 [78] (22M, 384-d), BGE-
+small/base/large-en-v1.5
+[79]
+(33M/110M/335M),
+and
+Qwen3-Embedding-0.6B [80] (596M, 1024-d, released
+2025). All corpora are searched with exact inner product
+(FAISS [81]). Detailed per-query analysis uses BGE-small;
+the BGE ladder is the controlled same-family scale-up,
+MiniLM the cross-family check, and Qwen3 the newer-
+generation check. Queries are encoded prefix-free with
+the BGE models throughout; Supplementary Table S8 re-
+encodes the queries with the model-card instruction and
+shows that the tax is insensitive to the choice: the instruction
+raises dense nDCG@10 by at most 0.026 on five corpora
+(under 0.02 in all but one model–corpus pair), by 0.09–0.11
+on TREC-COVID, and by 0.06 for BGE-base and BGE-large
+on Quora, and it moves the interpolation tax by at most three
+points on the five corpora other than TREC-COVID and
+Quora, where it removes the five-point penalty that prefix-
+free encoding imposes on BGE-base and BGE-large. Qwen3-
+Embedding is instruction-tuned and is used with the query
+instruction prescribed by its model card, with documents
+truncated at 512 tokens like the other encoders.
+Learned sparse. SPLADE [15] (the CoCondenser-
+EnsembleDistil checkpoint [16]) replaces BM25 as the
+sparse side in Section V-F, scored by exact sparse dot prod-
+uct.
+Fusion. RRF with the literature default k = 60; normal-
+ized score interpolation, sf = α ˜sd + (1 −α) ˜ss with min–
+max normalization over each retriever’s top-100 and dense
+weight α; and CombMNZ [17]. The interpolation weight
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+is held fixed at α = 0.7 for every encoder and corpus in
+every table unless stated otherwise, so no encoder or corpus
+is tuned within this study; Section V-B selects α under
+two held-out protocols and reports the tax at the selected
+weights. All retrievers return the top-100 documents per
+query, and scores and ranks are stored per query. Exact fused-
+score ties, frequent under RRF because its contributions take
+finitely many values, are broken by document identifier in
+the trec_eval convention, so fused rankings and the candidate
+lists of Section IV-C are deterministic.
+C. RERANKING AND EFFICIENCY MEASUREMENTS
+To measure how much of the tax a second stage recovers, we
+rerank with the cross-encoder BGE-reranker-v2-m3 [82]. For
+each query, the top-30 candidates of BM25, dense, RRF, and
+interpolation are scored once as a union, and each arm is then
+re-sorted by the cross-encoder score, so the arms differ only
+in their candidate source and share an identical reranking
+budget (all four reranked arms are listed in Supplementary
+Table S10). Quora is subsampled to 1,000 queries (seed 42)
+for cost. The reranker runs in 16-bit floating point; we veri-
+fied on samples that its rankings agree with 32-bit scoring to
+within 0.004 nDCG@10. Efficiency is measured on a single
+consumer workstation (Apple M5, 16 GB unified memory, no
+discrete GPU): retrieval and fusion latencies on its CPU cores
+(batch size one, warm caches; median and 95th percentile
+over 200 queries), and reranker throughput on its integrated
+GPU; index sizes are measured on disk (Lucene) or as the
+embedding matrix (dense).
+D. EVALUATION METRICS AND STATISTICS
+nDCG@10, the standard BEIR cutoff, is the primary metric
+throughout, computed with pytrec_eval [83]; recall@10
+is reported where coverage matters. Pairwise comparisons
+use Wilcoxon signed-rank tests with Bonferroni correction
+and paired Cohen’s d; 95% confidence intervals use 1,000
+bootstrap resamples of queries; risk-sensitive comparisons
+against the deployable baseline use URisk/TRisk [57], [58];
+variance decomposition uses one-way ANOVA η2.
+E. QUERY FEATURES FOR PREDICTABILITY
+We extract 17 features per query in three groups. Query-
+intrinsic (6): query length, IDF mean/max/std, entity density,
+distance to the corpus centroid. Retrieval score-based (5):
+BM25 and dense top-1 minus top-2 margins, mean and
+standard deviation of the dense top-10 similarities, top-10
+Jaccard overlap between the two rankings. QPP-inspired
+(6): NQC and WIG [46], [47] for each retriever, their ratio,
+and a margin-based score-ratio weight. A gradient-boosted
+tree ensemble (GBT; 200 trees, depth 3) predicts fusion
+failure, defined as τ(q) > 0.01 to exclude near-ties, and is
+evaluated by held-out ROC-AUC both within a corpus (5-
+fold) and across corpora (leave-one-corpus-out).
+V. RESULTS
+159624
+VOLUME 14, 2026

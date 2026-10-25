@@ -1,0 +1,114 @@
+at least the pooled top-10 of both retrievers, extending
+the pool to any fusion candidates being evaluated. As
+a planning illustration, the paired dense-minus-BM25
+nDCG@10 differences in our data have standard de-
+viations of 0.17–0.36. For independent queries with
+similar variability, the approximate 95% confidence-
+interval half-width is 1.96s/√n, where s is the sample
+standard deviation: about 0.03–0.07 at 100 queries,
+0.02–0.05 at 200, and 0.016–0.035 at 400. A practi-
+cal starting point is therefore 200–400 representative
+queries, with a larger sample for smaller gaps, het-
+erogeneous traffic, or narrower precision requirements.
+These are planning values, not a guaranteed sample
+size for a new corpus; estimate its variability in a
+pilot and pre-specify the required precision. An interval
+overlapping zero does not establish equivalence. Se-
+lect the weight by cross-validation (Section V-B) and
+measure the tax on held-out queries rather than on the
+queries used to select it. If dense leads clearly (in our
+data by 0.04 nDCG@10 or more, against 0.01 on the
+balanced corpora), use dense-weighted interpolation
+with α
+≈
+0.6–0.7; this weight transferred across
+corpora at a cost of at most 0.014 nDCG@10 except on
+TREC-COVID, whose optimum lies at 0.5 (Table 4).
+If the two are balanced, use RRF or CombMNZ, or
+interpolation near α = 0.5.
+2) Treat dense-only as a live option. Fusion beat dense-
+only in aggregate on every corpus with the primary
+encoder, and on 33 of the 35 encoder–corpus pairs
+overall (the exceptions are both Qwen3-Embedding:
+SciDocs by 0.003 and ArguAna by 0.036), but by
+only 0.008–0.051 nDCG@10, while 8–21% of queries
+lost 0.04–0.21 nDCG@10 on average. For a rank-
+sensitive consumer with a loss-averse objective, the
+risk-sensitive tests favor dense-only on six of the seven
+corpora.
+3) Do not expect a stronger or newer encoder to re-
+move the tax. It persisted across a 22M–596M lad-
+der and three model generations; the decision to fuse
+should be revisited per corpus, not settled once.
+4) Prefer a per-corpus static policy to per-query rout-
+ing on cheap features. The failure signal does not
+transfer across corpora and its features change meaning
+with the sparse–dense balance (Section V-G).
+5) Budget the second retriever against the reranker.
+Adding BM25 to a dense stack costs 1.1–4.3 ms per
+query and a small index, whereas a cross-encoder over
+30 candidates costs about 1.6 s per query on the same
+hardware (Table 14). Fusion with a balance-keyed
+weight is the cheap lever where no reranker is afford-
+able; where a reliable reranker is already in place, the
+second retriever added at most 0.011 nDCG@10 in
+our measurements except on balanced corpora, and the
+budget is better spent on validating the reranker per
+corpus.
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+E. WHY PER-QUERY ROUTING IS HARD
+A natural response to the tax is to fuse only when fusion
+is predicted to help. Section V-G shows why this is harder
+than it looks: the failure signal exists within a corpus but
+its carriers and their directions change across corpora, so a
+router calibrated on one corpus can be at or below chance
+on another, the practitioner has no cheap way to know which,
+and the held-out router of Supplementary Table S11 confirms
+that acting on the signal does not pay. This is consistent with
+QPP-weighted fusion working best when tuned to a target
+distribution [49] and with the observation that classical QPP
+degrades on neural rankers [48]. It also frames the per-query
+gap that routing would have to close: the oracle gains 0.02–
+0.05 nDCG@10 over static fusion on every corpus, which is
+worth pursuing, but the evidence here says the signal must
+come from richer, per-corpus, or model-based sources rather
+than transferable heuristics.
+F. TEMPORAL STABILITY AS ENCODERS EVOLVE
+The ladder spans encoder generations from 2021 (MiniLM)
+through 2023 (BGE v1.5) to 2025 (Qwen3-Embedding), and
+the 2025 model pays a tax of 14–43%, a range overlap-
+ping those of the 2021 and 2023 models, despite being the
+strongest encoder in the study on four corpora. Two struc-
+tural reasons suggest the tax will outlive the next encoder
+generation as well: the off-diagonal quadrants are defined by
+disagreement between two retrievers, which a better dense
+model reduces only on the dense side, and score interpolation
+must still normalize two incomparable distributions, which
+no encoder improvement changes. What a newer encoder
+does change is the sparse–dense balance, and hence which
+fusion method and weight are appropriate, so the balance
+should be re-measured whenever the encoder is updated.
+G. LIMITATIONS AND FUTURE WORK
+(1) We evaluate first-stage retrieval and one reranking stage,
+not answer generation; the reranking experiment measures
+the exposure of a retrieve-then-rerank pipeline at one depth
+with one reranker, and the effect on generated answers re-
+mains open. (2) The reranking results are for one cross-
+encoder applied to the top-30 candidates of each source; they
+are not a general upper bound on reranking recovery, since
+deeper reranking or a different reranker could recover more
+of the tax, or less, as rerankers themselves degrade with pool
+size [67]. (3) TREC-COVID has 50 queries, so its estimates
+carry wide intervals, and the multi-million-document BEIR
+corpora are omitted under a CPU budget. (4) Efficiency was
+measured on one consumer workstation without a discrete
+GPU; absolute latencies will differ on production hardware,
+and so will the ratios between components, since a GPU
+shortens dense encoding and reranking but not Lucene; what
+we expect to survive is the ordering, with BM25 the cheapest
+component per query and the cross-encoder the most ex-
+pensive. (5) Our predictability analysis covers cheap QPP
+features and a dense query embedding. An LLM-based effec-
+tiveness scorer of the kind DAT [9] uses to set its per-query
+159634
+VOLUME 14, 2026

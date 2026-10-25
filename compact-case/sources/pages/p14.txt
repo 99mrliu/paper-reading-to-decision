@@ -1,0 +1,240 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+TABLE 13. Reranking recovery (BGE-reranker-v2-m3 over the top-30 of each candidate source, BGE-small, Anserini BM25; Quora subsampled to 1,000 queries).
+“First stage” and “Reranked” give nDCG@10 before and after reranking; Tax vs. dense is the fraction of queries on which the fusion arm scores below the dense
+arm, before and after reranking, and Net ∆the net change in the prevalence of that tax (1 −after/before); the matched-query transitions behind it are in
+Supplementary Table S12. On ArguAna and SciDocs the reranker lowers nDCG@10 for every arm, and on Quora it leaves the dense arm unchanged and lowers
+the interpolated arm, so the collapse of the tax on these corpora reflects the reranker overriding first-stage order, not recovery.
+First stage
+Reranked (nDCG@10) Tax vs. dense, Interp(0.7)
+Tax vs. dense, RRF
+Dataset
+Dense Interp Dense Interp
+RRF
+Before After
+Net ∆%
+Before After Net ∆%
+SciFact
+0.720
+0.731
+0.739
+0.738
+0.740
+10.0
+6.7
+33
+15.3
+8.3
+46
+FiQA
+0.385
+0.409
+0.426
+0.429
+0.426
+14.7
+15.6
+-6
+30.4
+19.9
+34
+NFCorpus
+0.337
+0.355
+0.340
+0.350
+0.354
+18.3
+10.8
+41
+23.8
+21.7
+9
+ArguAna
+0.595
+0.603
+0.479
+0.490
+0.548
+19.1
+1.8
+90
+32.9
+4.4
+87
+SciDocs
+0.197
+0.207
+0.190
+0.190
+0.184
+20.9
+21.0
+0
+27.6
+26.8
+3
+TREC-COVID
+0.666
+0.717
+0.808
+0.826
+0.852
+14.0
+22.0
+-57
+26.0
+26.0
+0
+Quora
+0.891
+0.901
+0.893
+0.893
+0.892
+9.2
+0.6
+94
+17.7
+1.5
+92
+TABLE 14. Cost of each component on one consumer workstation (Apple M5, CPU cores; no discrete GPU): index sizes and per-query latencies, median over 200
+queries (50 on TREC-COVID, and 50 on every corpus for SPLADE) at batch size one. Dense enc. and FAISS are BGE-small query encoding and exact search;
+SPLADE enc. is query encoding only; Interp and RRF are the fusion step over two top-100 lists.
+Index size (MB)
+Per-query latency, median (ms)
+Dataset
+Docs Lucene BGE-sm BGE-lg BM25 Dense enc. FAISS SPLADE enc. Interp RRF
+SciFact
+5k
+11
+8
+21
+1.7
+6.6
+0.1
+17.8
+0.08
+0.05
+FiQA
+58k
+67
+88
+236
+2.0
+6.1
+1.3
+18.1
+0.08
+0.06
+NFCorpus
+4k
+8
+6
+15
+1.1
+5.3
+0.1
+18.5
+0.07
+0.05
+ArguAna
+9k
+13
+13
+36
+2.9
+19.1
+0.2
+52.9
+0.08
+0.06
+SciDocs
+26k
+238
+39
+105
+2.7
+6.2
+0.6
+17.1
+0.08
+0.05
+TREC-COVID
+171k
+266
+263
+702
+4.3
+6.3
+3.9
+18.4
+0.08
+0.06
+Quora
+523k
+69
+803
+2142
+1.7
+5.7
+11.8
+18.4
+0.08
+0.06
+a contradiction but the regime structure that the calibration
+literature predicts (Section II-C): interpolation is the better
+tool when there is a confidence worth keeping, rank fusion
+when there is not. The practical consequence is that the fusion
+method should follow the measured sparse–dense balance
+on the target corpus rather than a global default, and that
+the balance can be measured on a labeled sample of a few
+hundred queries before choosing (Section VI-D).
+B. WHEN DOES FUSION HELP?
+The quadrant decomposition (Table 7) makes the mechanism
+explicit. Fusion helps when the two retrievers are comple-
+mentary and comparably reliable on a query: in Both-Win
+the two rankings can promote different relevant documents,
+although Table 7 shows that the reordering runs both ways
+there and nearly cancels, and in Both-Fail fusion can only
+pull a relevant document up from below the cutoff. Fusion
+hurts when one retriever is decisively better and the other
+contributes noise: in Dense-Only and Sparse-Only, fusion
+dilutes the strong signal and demotes documents the better
+retriever had already surfaced, and a dense-heavy weight
+sacrifices the Sparse-Only minority almost entirely (87–95%
+hurt). Because a stronger dense encoder widens its lead on
+the queries it already wins without shrinking the off-diagonal
+share, the tax does not decline along the ladder. The value
+of fusion on a corpus is thus governed by the balance and
+complementarity of its two retrievers on that corpus’s query
+distribution, not by the absolute quality of either.
+C. CORPUS PATTERNS IN BRIEF
+SciFact (precise scientific terminology) has the cleanest pro-
+file: 76% Both-Win and the lowest tax after Quora. FiQA is
+among the hardest, with 30% Both-Fail and a 23% Dense-
+Only share where only semantics help. NFCorpus carries the
+highest tax outside the 50-query TREC-COVID set (39%)
+because heavy synonymy gives both retrievers partially rel-
+evant documents that fusion frequently reorders. ArguAna
+is dense-dominated (20% Dense-Only) and pays a 30% tax
+even though, with the standard BM25, fusion matches dense-
+only in aggregate. SciDocs resembles a harder SciFact, with a
+third of its queries paying the tax. TREC-COVID (50 queries,
+100% Both-Win, balanced retrievers) is the regime in which
+rank fusion wins and fusion helps most queries, yet it still
+pays the highest oracle tax because when both retrievers rank
+a relevant document first, fusion can only displace it. Quora
+(duplicate questions) is dense-dominated and accurate, so
+fusion has the least to add and incurs the lowest tax (13%),
+yet even there it demotes relevant documents on one query in
+eight.
+D. PRACTICAL DECISION FRAMEWORK
+1) Measure the balance first. On a labeled sample of the
+target corpus, compare BM25 and dense nDCG@10
+query by query. Draw queries randomly from the target
+query stream, using proportional stratification across
+known traffic segments; if rare segments are oversam-
+pled, weight the overall estimate back to traffic pro-
+portions and report segment results separately. Judge
+VOLUME 14, 2026
+159633

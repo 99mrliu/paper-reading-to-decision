@@ -1,0 +1,312 @@
+Chauhan and Agarwal: The Fusion Tax: A Diagnostic Analysis of When Hybrid Retrieval Hurts
+TABLE 3. Baseline validation: single-retriever nDCG@10 on all seven datasets. Anserini BM25 (ours) vs. the published Anserini regression values [14]; the
+rank_bm25 runs used for the implementation-sensitivity check; and dense retrieval across the five encoders.
+BM25 (nDCG@10)
+Dense (nDCG@10)
+Dataset
+Anserini (ours)
+Anserini (publ.)
+rank_bm25
+MiniLM
+BGE-sm
+BGE-base
+BGE-lg
+Qwen3
+SciFact
+0.6647
+0.6647
+0.6295
+0.6451
+0.7200
+0.7376
+0.7346
+0.6992
+FiQA
+0.2361
+0.2361
+0.2016
+0.3687
+0.3848
+0.3909
+0.4432
+0.4667
+NFCorpus
+0.3254
+0.3254
+0.2881
+0.3159
+0.3371
+0.3681
+0.3688
+0.3552
+ArguAna
+0.4142
+0.4142
+0.3561
+0.5017
+0.5950
+0.6362
+0.6357
+0.6737
+SciDocs
+0.1581
+0.1581
+0.1438
+0.2164
+0.1973
+0.2045
+0.2001
+0.2274
+TREC-COVID
+0.6559
+0.6559
+0.4593
+0.4725
+0.6660
+0.6719
+0.6443
+0.8923
+Quora
+0.7886
+0.7886
+0.7368
+0.8755
+0.8878
+0.8280
+0.8289
+0.8717
+TABLE 4. Held-out selection of the interpolation weight (BGE-small). In-sample: best α on the evaluation queries; LOCO: α chosen on the other six corpora; CV:
+within-corpus 5-fold, mode of the selected weights. Tax vs. dense is the fraction of queries on which fusion scores below dense-only at the given weight; Helped is
+the fraction it improves at the LOCO weight.
+Selected α
+nDCG@10
+Tax vs. dense (%)
+Helped
+Dataset
+In-sample
+LOCO
+CV
+Dense
+α=0.7
+LOCO
+CV
+α=0.7
+LOCO
+CV
+LOCO (%)
+SciFact
+0.7
+0.6
+0.7
+0.720
+0.731
+0.727
+0.721
+10.0
+12.7
+11.3
+15.7
+FiQA
+0.7
+0.6
+0.7
+0.385
+0.409
+0.405
+0.409
+14.7
+20.7
+14.7
+23.9
+NFCorpus
+0.6
+0.7
+0.6
+0.337
+0.355
+0.355
+0.358
+18.3
+18.3
+20.7
+33.4
+ArguAna
+0.8
+0.6
+0.8
+0.595
+0.603
+0.591
+0.605
+19.1
+25.0
+13.9
+22.7
+SciDocs
+0.7
+0.6
+0.7
+0.197
+0.207
+0.205
+0.207
+20.9
+24.6
+20.9
+28.1
+TREC-COVID
+0.5
+0.7
+0.5
+0.666
+0.717
+0.717
+0.748
+14.0
+14.0
+26.0
+72.0
+Quora
+0.7
+0.6
+0.7
+0.888
+0.900
+0.896
+0.900
+8.2
+10.6
+8.2
+12.8
+TABLE 5. nDCG@10 across retrieval and fusion methods (BGE-small, Anserini BM25). Best per row in bold.
+Dataset
+BM25
+Dense
+RRF
+Interp(0.3)
+Interp(0.5)
+Interp(0.7)
+CombMNZ
+SciFact
+0.6647
+0.7200
+0.7152
+0.7113
+0.7273
+0.7307
+0.7230
+FiQA
+0.2361
+0.3848
+0.3667
+0.3157
+0.3886
+0.4087
+0.3872
+NFCorpus
+0.3254
+0.3371
+0.3570
+0.3493
+0.3560
+0.3547
+0.3574
+ArguAna
+0.4142
+0.5950
+0.5549
+0.5115
+0.5717
+0.6027
+0.5702
+SciDocs
+0.1581
+0.1973
+0.1954
+0.1839
+0.1999
+0.2070
+0.1976
+TREC-COVID
+0.6559
+0.6660
+0.8010
+0.7077
+0.7475
+0.7166
+0.8045
+Quora
+0.7886
+0.8878
+0.8695
+0.8561
+0.8875
+0.8997
+0.8857
+SciFact
+FiQA
+1.0
+1.0
+Dense NDCG@10
+Dense NDCG@10
+0.5
+0.5
+0.0
+0.0
+0.0
+0.5
+1.0
+BM25 NDCG@10
+0.0
+0.5
+1.0
+BM25 NDCG@10
+SciDocs
+TREC-COVID
+1.0
+1.0
+Dense NDCG@10
+Dense NDCG@10
+0.5
+0.5
+0.0
+0.0
+0.0
+0.5
+1.0
+BM25 NDCG@10
+0.0
+0.5
+1.0
+BM25 NDCG@10
+NFCorpus
+ArguAna
+1.0
+1.0
+Dense NDCG@10
+Dense NDCG@10
+0.5
+0.5
+0.0
+0.0
+0.0
+0.5
+1.0
+BM25 NDCG@10
+0.0
+0.5
+1.0
+BM25 NDCG@10
+Quora
+1.0
+Dense NDCG@10
+0.5
+0.0
+0.0
+0.5
+1.0
+BM25 NDCG@10
+FIGURE 1. Per-query BM25 vs. dense nDCG@10 (BGE-small). For visualization only, each query is colored by the best of the three fusion methods with a 0.01
+deadband: green, fusion helped (τ < −0.01); red, fusion hurt (τ > 0.01); gray, neutral. Harm concentrates off the diagonal, where the retrievers disagree.
+159626
+VOLUME 14, 2026
